@@ -8,7 +8,7 @@
 	"engines": {
 		"node": "^20.9.0"
 	},
-	"dependencies": {
+	"devDependencies": {
 		"@stylistic/eslint-plugin": "^2.3.0",
 		"@stylistic/stylelint-plugin": "^2.0.0",
 		"@typescript-eslint/eslint-plugin": "^7.15.0",
