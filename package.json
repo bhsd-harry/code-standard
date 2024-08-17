@@ -1,10 +1,17 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"license": "GPL-2.0",
 	"files": [
+		"/dist/",
 		"*.cjs"
 	],
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"lint": "tsc --noEmit && eslint -c eslintrc.browser.cjs --cache ."
+	},
 	"engines": {
 		"node": "^20.9.0"
 	},
