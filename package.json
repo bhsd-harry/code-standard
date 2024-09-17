@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"license": "GPL-2.0",
 	"files": [
 		"/dist/",
@@ -10,10 +10,7 @@
 	"types": "./dist/index.d.ts",
 	"scripts": {
 		"build": "tsc",
-		"lint": "tsc --noEmit && eslint -c eslintrc.browser.cjs --cache ."
-	},
-	"engines": {
-		"node": "^20.9.0"
+		"lint": "tsc --noEmit && eslint --cache ."
 	},
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^2.3.0",

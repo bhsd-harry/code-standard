@@ -21,9 +21,7 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 13,
 	},
-	ignorePatterns: [
-		'dist/',
-	],
+	ignorePatterns: ['dist/'],
 	rules: {
 		'array-callback-return': 2,
 		'no-cond-assign': [
@@ -151,9 +149,7 @@ module.exports = {
 		'no-empty-function': [
 			2,
 			{
-				allow: [
-					'arrowFunctions',
-				],
+				allow: ['arrowFunctions'],
 			},
 		],
 		'no-empty-static-block': 2,
@@ -345,7 +341,7 @@ module.exports = {
 			2,
 			{
 				allowBlockStart: true,
-				ignorePattern: '^\\* @',
+				ignorePattern: String.raw`^\* @`,
 			},
 		],
 		'@stylistic/lines-between-class-members': [
@@ -612,9 +608,7 @@ module.exports = {
 		'jsdoc/check-indentation': [
 			1,
 			{
-				excludeTags: [
-					'description',
-				],
+				excludeTags: ['description'],
 			},
 		],
 		'jsdoc/check-tag-names': 1,
@@ -649,7 +643,11 @@ module.exports = {
 				contexts: [
 					'FunctionDeclaration:not(TSDeclareFunction + FunctionDeclaration)',
 					'TSDeclareFunction:not(TSDeclareFunction + TSDeclareFunction)',
-					"MethodDefinition:not(MethodDefinition:has(TSEmptyBodyFunctionExpression) + MethodDefinition, [kind='get'] + [kind='set'], [override=true])",
+					'MethodDefinition:not('
+					+ 'MethodDefinition:has(TSEmptyBodyFunctionExpression) + MethodDefinition,'
+					+ "[kind='get'] + [kind='set'],"
+					+ '[override=true]'
+					+ ')',
 				],
 				exemptEmptyConstructors: true,
 				checkGetters: true,
@@ -676,9 +674,7 @@ module.exports = {
 		{
 			files: '**/*.json',
 			parser: 'eslint-plugin-json-es',
-			extends: [
-				'plugin:eslint-plugin-json-es/recommended',
-			],
+			extends: ['plugin:eslint-plugin-json-es/recommended'],
 			rules: {
 				'@stylistic/array-bracket-newline': [
 					2,
@@ -723,9 +719,7 @@ module.exports = {
 				ecmaVersion: 'latest',
 				project: './tsconfig.json',
 			},
-			plugins: [
-				'@typescript-eslint',
-			],
+			plugins: ['@typescript-eslint'],
 			extends: [
 				'plugin:@typescript-eslint/recommended',
 				'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -753,9 +747,7 @@ module.exports = {
 				'@typescript-eslint/no-empty-function': [
 					2,
 					{
-						allow: [
-							'arrowFunctions',
-						],
+						allow: ['arrowFunctions'],
 					},
 				],
 				'no-invalid-this': 0,
@@ -887,9 +879,7 @@ module.exports = {
 				'@typescript-eslint/no-this-alias': [
 					2,
 					{
-						allowedNames: [
-							'self',
-						],
+						allowedNames: ['self'],
 					},
 				],
 				'@typescript-eslint/no-unnecessary-boolean-literal-compare': 2,
