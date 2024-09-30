@@ -3,7 +3,7 @@
 module.exports = {
 	root: true,
 	env: {
-		es2022: true,
+		es2024: true,
 	},
 	plugins: [
 		'@stylistic',
@@ -19,7 +19,7 @@ module.exports = {
 		'plugin:eslint-comments/recommended',
 	],
 	parserOptions: {
-		ecmaVersion: 13,
+		ecmaVersion: 'latest',
 	},
 	ignorePatterns: ['dist/'],
 	rules: {
