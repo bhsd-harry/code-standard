@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('@bhsd/common/eslintrc.cjs');
+const config = require('./eslintrc.cjs');
 
 module.exports = {
 	...config,

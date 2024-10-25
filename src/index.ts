@@ -14,6 +14,38 @@ declare global {
 	const define: unknown;
 }
 
+const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\d_])`,
+	rgbColor = String.raw`rgba?\(\s*(?:${
+		String.raw`[\d.]+\s+[\d.]+\s+[\d.]+(?:\s*\/\s*[\d.]+%?)?`
+	}|${
+		String.raw`[\d.]+\s*,\s*[\d.]+\s*,\s*[\d.]+(?:\s*,\s*[\d.]+%?)?`
+	})\s*\)`,
+	re = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu');
+
+/**
+ * 包含颜色时断开字符串
+ * @param str 字符串
+ */
+export const splitColors = (str: string): [string, number, number, boolean][] => {
+	re.lastIndex = 0;
+	const pieces: [string, number, number, boolean][] = [];
+	let mt = re.exec(str),
+		lastIndex = 0;
+	while (mt) {
+		const index = mt.index + mt[1]!.length;
+		if (index > lastIndex) {
+			pieces.push([str.slice(lastIndex, index), lastIndex, index, false]);
+		}
+		({lastIndex} = re);
+		pieces.push([mt[2]!, index, lastIndex, true]);
+		mt = re.exec(str);
+	}
+	if (str.length > lastIndex) {
+		pieces.push([str.slice(lastIndex), lastIndex, str.length, false]);
+	}
+	return pieces;
+};
+
 /**
  * 使用传统方法加载脚本
  * @param src 脚本地址
