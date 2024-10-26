@@ -20,7 +20,21 @@ const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\d_])`
 	}|${
 		String.raw`[\d.]+\s*,\s*[\d.]+\s*,\s*[\d.]+(?:\s*,\s*[\d.]+%?)?`
 	})\s*\)`,
-	re = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu');
+	re = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu'),
+	span = document.createElement('span');
+
+/**
+ * 解码标题
+ * @param title 标题
+ */
+export const normalizeTitle = (title: string): string => {
+	const decoded = decodeURIComponent(title.replace(/%(?![\da-f]{2})/giu, '%25'));
+	if (/[<>[\]|{}]/u.test(decoded)) {
+		return decoded;
+	}
+	span.innerHTML = decoded;
+	return span.textContent!;
+};
 
 /**
  * 包含颜色时断开字符串
