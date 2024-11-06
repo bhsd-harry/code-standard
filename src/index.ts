@@ -15,12 +15,19 @@ declare global {
 }
 
 const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\d_])`,
+	rgbValue = String.raw`(?:\d*\.)?\d+%?`,
+	hue = String.raw`(?:\d*\.)?\d+(?:deg|grad|rad|turn)?`,
 	rgbColor = String.raw`rgba?\(\s*(?:${
-		String.raw`[\d.]+\s+[\d.]+\s+[\d.]+(?:\s*\/\s*[\d.]+%?)?`
+		String.raw`${new Array(3).fill(rgbValue).join(String.raw`\s+`)}(?:\s*\/\s*${rgbValue})?`
 	}|${
-		String.raw`[\d.]+\s*,\s*[\d.]+\s*,\s*[\d.]+(?:\s*,\s*[\d.]+%?)?`
+		String.raw`${new Array(3).fill(rgbValue).join(String.raw`\s*,\s*`)}(?:\s*,\s*${rgbValue})?`
 	})\s*\)`,
-	re = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu'),
+	hslColor = String.raw`hsla?\(\s*(?:${
+		String.raw`${hue}\s+${rgbValue}\s+${rgbValue}(?:\s*\/\s*${rgbValue})?`
+	}|${
+		String.raw`${hue}${String.raw`\s*,\s*(?:\d*\.)?\d+%`.repeat(2)}(?:\s*,\s*${rgbValue})?`
+	})\s*\)`,
+	re = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu'),
 	span = document.createElement('span');
 
 /**
