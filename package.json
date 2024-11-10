@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.3.1",
+	"version": "0.4.0",
 	"license": "GPL-2.0",
 	"type": "module",
 	"files": [
