@@ -27,7 +27,8 @@ const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\d_])`
 	}|${
 		String.raw`${hue}${String.raw`\s*,\s*(?:\d*\.)?\d+%`.repeat(2)}(?:\s*,\s*${rgbValue})?`
 	})\s*\)`,
-	re = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu');
+	reFull = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu'),
+	reRGB = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu');
 let span: HTMLSpanElement;
 if (typeof document === 'object') {
 	span = document.createElement('span');
@@ -49,10 +50,12 @@ export const normalizeTitle = (title: string): string => {
 /**
  * 包含颜色时断开字符串
  * @param str 字符串
+ * @param hsl 是否包含 HSL
  */
-export const splitColors = (str: string): [string, number, number, boolean][] => {
+export const splitColors = (str: string, hsl = true): [string, number, number, boolean][] => {
+	const pieces: [string, number, number, boolean][] = [],
+		re = hsl ? reFull : reRGB;
 	re.lastIndex = 0;
-	const pieces: [string, number, number, boolean][] = [];
 	let mt = re.exec(str),
 		lastIndex = 0;
 	while (mt) {
