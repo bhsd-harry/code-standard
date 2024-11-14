@@ -35,11 +35,17 @@ if (typeof document === 'object') {
 }
 
 /**
+ * PHP的`rawurldecode`函数的JavaScript实现
+ * @param str 要解码的字符串
+ */
+export const rawurldecode = (str: string): string => decodeURIComponent(str.replace(/%(?![\da-f]{2})/giu, '%25'));
+
+/**
  * 解码标题
  * @param title 标题
  */
 export const normalizeTitle = (title: string): string => {
-	const decoded = decodeURIComponent(title.replace(/%(?![\da-f]{2})/giu, '%25'));
+	const decoded = rawurldecode(title);
 	if (/[<>[\]|{}]/u.test(decoded)) {
 		return decoded;
 	}
