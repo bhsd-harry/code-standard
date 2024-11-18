@@ -54,6 +54,12 @@ export const normalizeTitle = (title: string): string => {
 };
 
 /**
+ * 将0~1之间的数字转换为十六进制
+ * @param d 0~1之间的数字
+ */
+export const numToHex = (d: number): string => Math.round(d * 255).toString(16).padStart(2, '0');
+
+/**
  * 包含颜色时断开字符串
  * @param str 字符串
  * @param hsl 是否包含 HSL
