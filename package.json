@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.4.4",
+	"version": "0.4.5",
 	"license": "GPL-2.0",
 	"files": [
 		"/dist/",
@@ -8,6 +8,9 @@
 	],
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
+	"bin": {
+		"copy-dev": "bin/dev.cjs"
+	},
 	"scripts": {
 		"build": "tsc --emitDeclarationOnly && esbuild src/index.ts --charset=utf8 --target=es2023 --format=cjs --outfile=dist/index.js",
 		"lint": "tsc --noEmit && eslint --cache ."
