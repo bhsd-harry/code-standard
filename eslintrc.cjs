@@ -480,6 +480,7 @@ module.exports = {
 		],
 		'promise/no-multiple-resolved': 2,
 		'promise/prefer-await-to-then': 2,
+		'promise/spec-only': 2,
 		'regexp/no-contradiction-with-assertion': 2,
 		'regexp/no-dupe-disjunctions': [
 			2,
@@ -540,6 +541,7 @@ module.exports = {
 				name: 'e',
 			},
 		],
+		'unicorn/consistent-existence-index-check': 2,
 		'unicorn/consistent-function-scoping': [
 			2,
 			{
@@ -586,9 +588,11 @@ module.exports = {
 		'unicorn/prefer-array-some': 2,
 		'unicorn/prefer-code-point': 2,
 		'unicorn/prefer-default-parameters': 2,
+		'unicorn/prefer-global-this': 2,
 		'unicorn/prefer-includes': 2,
 		'unicorn/prefer-keyboard-event-key': 2,
 		'unicorn/prefer-logical-operator-over-ternary': 2,
+		'unicorn/prefer-math-min-max': 2,
 		'unicorn/prefer-native-coercion-functions': 2,
 		'unicorn/prefer-negative-index': 2,
 		'unicorn/prefer-optional-catch-binding': 2,
@@ -769,7 +773,7 @@ module.exports = {
 					},
 				],
 				'no-throw-literal': 0,
-				'@typescript-eslint/no-throw-literal': 2,
+				'@typescript-eslint/only-throw-error': 2,
 				'no-unused-expressions': 0,
 				'@typescript-eslint/no-unused-expressions': 2,
 				'no-unused-vars': 0,
@@ -810,14 +814,6 @@ module.exports = {
 				'@typescript-eslint/require-await': 2,
 				'unicorn/prefer-string-starts-ends-with': 0,
 				'@typescript-eslint/prefer-string-starts-ends-with': 2,
-				'@typescript-eslint/ban-types': [
-					2,
-					{
-						types: {
-							Function: false,
-						},
-					},
-				],
 				'@typescript-eslint/consistent-generic-constructors': 2,
 				'@typescript-eslint/consistent-indexed-object-style': 2,
 				'@typescript-eslint/consistent-type-assertions': 2,
@@ -835,14 +831,6 @@ module.exports = {
 						allowIIFEs: true,
 					},
 				],
-				'@typescript-eslint/member-delimiter-style': [
-					2,
-					{
-						singleline: {
-							delimiter: 'comma',
-						},
-					},
-				],
 				'@typescript-eslint/method-signature-style': [
 					2,
 					'method',
@@ -850,6 +838,12 @@ module.exports = {
 				'@typescript-eslint/no-confusing-non-null-assertion': 2,
 				'@typescript-eslint/no-confusing-void-expression': 2,
 				'@typescript-eslint/no-duplicate-type-constituents': 2,
+				'@typescript-eslint/no-empty-object-type': [
+					2,
+					{
+						allowInterfaces: 'with-single-extends',
+					},
+				],
 				'@typescript-eslint/no-explicit-any': [
 					2,
 					{
@@ -899,8 +893,24 @@ module.exports = {
 				'@typescript-eslint/prefer-for-of': 2,
 				'@typescript-eslint/prefer-reduce-type-parameter': 2,
 				'@typescript-eslint/prefer-return-this-type': 2,
-				'@typescript-eslint/switch-exhaustiveness-check': 2,
-				'@typescript-eslint/type-annotation-spacing': [
+				'@typescript-eslint/related-getter-setter-pairs': 2,
+				'@typescript-eslint/switch-exhaustiveness-check': [
+					2,
+					{
+						considerDefaultExhaustiveForUnions: true,
+					},
+				],
+				'@typescript-eslint/unified-signatures': 2,
+				'func-style': 0,
+				'@stylistic/member-delimiter-style': [
+					2,
+					{
+						singleline: {
+							delimiter: 'comma',
+						},
+					},
+				],
+				'@stylistic/type-annotation-spacing': [
 					2,
 					{
 						before: false,
@@ -912,8 +922,6 @@ module.exports = {
 						},
 					},
 				],
-				'@typescript-eslint/unified-signatures': 2,
-				'func-style': 0,
 				'@stylistic/type-generic-spacing': 2,
 				'@stylistic/type-named-tuple-spacing': 2,
 				'jsdoc/check-types': 0,

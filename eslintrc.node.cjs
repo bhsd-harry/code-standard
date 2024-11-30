@@ -18,7 +18,12 @@ module.exports = {
 			2,
 			'module.exports',
 		],
-		'n/no-missing-import': 2,
+		'n/no-missing-import': [
+			2,
+			{
+				ignoreTypeImport: true,
+			},
+		],
 		'n/no-missing-require': 2,
 		'n/no-mixed-requires': 2,
 		'n/no-new-require': 2,

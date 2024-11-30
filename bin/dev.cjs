@@ -6,8 +6,8 @@ const fs = require('fs'),
 	json = require(`${process.cwd()}/package.json`);
 const {dependencies} = json,
 	dev = Object.fromEntries(
-		[...Object.entries({...devDependencies, ...json.devDependencies})].sort(([a], [b]) => a.localeCompare(b)),
+		[...Object.entries({...json.devDependencies, ...devDependencies})].sort(([a], [b]) => a.localeCompare(b)),
 	);
-('@bhsd/common' in dependencies ? dependencies : dev)['@bhsd/common'] = `^${version}`;
+(dependencies && '@bhsd/common' in dependencies ? dependencies : dev)['@bhsd/common'] = `^${version}`;
 json.devDependencies = dev;
 fs.writeFileSync('package.json', `${JSON.stringify(json, null, '\t')}\n`);

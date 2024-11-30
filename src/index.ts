@@ -93,17 +93,17 @@ export const splitColors = (str: string, hsl = true): [string, number, number, b
  */
 export const loadScript = (src: string, globalConst: string, amd?: boolean): Promise<void> => new Promise(resolve => {
 	const path = `${CDN}/${src}`;
-	let obj: Obj | undefined = window as unknown as Obj;
+	let obj: Obj | undefined = globalThis as unknown as Obj;
 	for (const prop of globalConst.split('.')) {
 		obj = obj?.[prop];
 	}
 	if (obj) {
 		resolve();
 	} else if (amd && typeof define === 'function' && 'amd' in define) {
-		const requirejs = window.require as unknown as Require;
+		const requirejs = globalThis.require as unknown as Require;
 		requirejs.config({paths: {[globalConst]: path}});
 		requirejs([globalConst], (exports: unknown) => {
-			Object.assign(window, {[globalConst]: exports});
+			Object.assign(globalThis, {[globalConst]: exports});
 			resolve();
 		});
 	} else {
