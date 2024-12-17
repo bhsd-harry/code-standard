@@ -14,21 +14,6 @@ declare global {
 	const define: unknown;
 }
 
-const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\d_])`,
-	rgbValue = String.raw`(?:\d*\.)?\d+%?`,
-	hue = String.raw`(?:\d*\.)?\d+(?:deg|grad|rad|turn)?`,
-	rgbColor = String.raw`rgba?\(\s*(?:${
-		String.raw`${new Array(3).fill(rgbValue).join(String.raw`\s+`)}(?:\s*\/\s*${rgbValue})?`
-	}|${
-		String.raw`${new Array(3).fill(rgbValue).join(String.raw`\s*,\s*`)}(?:\s*,\s*${rgbValue})?`
-	})\s*\)`,
-	hslColor = String.raw`hsla?\(\s*(?:${
-		String.raw`${hue}\s+${rgbValue}\s+${rgbValue}(?:\s*\/\s*${rgbValue})?`
-	}|${
-		String.raw`${hue}${String.raw`\s*,\s*(?:\d*\.)?\d+%`.repeat(2)}(?:\s*,\s*${rgbValue})?`
-	})\s*\)`,
-	reFull = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu'),
-	reRGB = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu');
 let span: HTMLSpanElement;
 if (typeof document === 'object') {
 	span = document.createElement('span');
@@ -65,7 +50,22 @@ export const numToHex = (d: number): string => Math.round(d * 255).toString(16).
  * @param hsl 是否包含 HSL
  */
 export const splitColors = (str: string, hsl = true): [string, number, number, boolean][] => {
-	const pieces: [string, number, number, boolean][] = [],
+	const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\d_])`,
+		rgbValue = String.raw`(?:\d*\.)?\d+%?`,
+		hue = String.raw`(?:\d*\.)?\d+(?:deg|grad|rad|turn)?`,
+		rgbColor = String.raw`rgba?\(\s*(?:${
+			String.raw`${new Array(3).fill(rgbValue).join(String.raw`\s+`)}(?:\s*\/\s*${rgbValue})?`
+		}|${
+			String.raw`${new Array(3).fill(rgbValue).join(String.raw`\s*,\s*`)}(?:\s*,\s*${rgbValue})?`
+		})\s*\)`,
+		hslColor = String.raw`hsla?\(\s*(?:${
+			String.raw`${hue}\s+${rgbValue}\s+${rgbValue}(?:\s*\/\s*${rgbValue})?`
+		}|${
+			String.raw`${hue}${String.raw`\s*,\s*(?:\d*\.)?\d+%`.repeat(2)}(?:\s*,\s*${rgbValue})?`
+		})\s*\)`,
+		reFull = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu'),
+		reRGB = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu'),
+		pieces: [string, number, number, boolean][] = [],
 		re = hsl ? reFull : reRGB;
 	re.lastIndex = 0;
 	let mt = re.exec(str),
