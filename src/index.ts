@@ -124,7 +124,18 @@ export const setObject = (key: string, value: unknown): void => {
 
 /**
  * 解析版本号
- * @param v 版本号
+ * @param version 版本号
  */
-export const parseVersion = (v: string): [number, number, number] =>
-	v.split('.', 3).map(Number) as [number, number, number];
+const parseVersion = (version: string): [number, number, number?] =>
+	version.split('.', 3).map(Number) as [number, number, number?];
+
+/**
+ * 比较版本号
+ * @param version 版本号
+ * @param baseVersion 基础版本号
+ */
+export const compareVersion = (version: string, baseVersion: string): boolean => {
+	const [major, minor] = parseVersion(version),
+		[baseMajor, baseMinor] = parseVersion(baseVersion);
+	return major > baseMajor || major === baseMajor && minor >= baseMinor;
+};

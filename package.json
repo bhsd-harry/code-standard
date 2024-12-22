@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"license": "MIT",
 	"author": "Bhsd",
 	"files": [
@@ -13,7 +13,8 @@
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.js"
 		},
-		"./*.cjs": "./*.cjs"
+		"./*.cjs": "./*.cjs",
+		"./package.json": "./package.json"
 	},
 	"types": "./dist/index.d.ts",
 	"bin": {
@@ -28,6 +29,7 @@
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^2.11.0",
 		"@stylistic/stylelint-plugin": "^3.1.1",
+		"@types/mocha": "^10.0.10",
 		"@typescript-eslint/eslint-plugin": "^8.16.0",
 		"@typescript-eslint/parser": "^8.16.0",
 		"esbuild": "^0.24.0",
@@ -42,6 +44,7 @@
 		"eslint-plugin-regexp": "^2.6.0",
 		"eslint-plugin-unicorn": "^56.0.1",
 		"http-server": "^14.1.0",
+		"mocha": "^10.8.2",
 		"stylelint": "^16.11.0",
 		"stylelint-config-recommended": "^14.0.0",
 		"typescript": "^5.7.2"
