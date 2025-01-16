@@ -76,7 +76,7 @@ export const splitColors = (str: string, hsl = true): [string, number, number, b
 			pieces.push([str.slice(lastIndex, index), lastIndex, index, false]);
 		}
 		({lastIndex} = re);
-		pieces.push([mt[2]!, index, lastIndex, true]);
+		pieces.push([mt[2]!, index, lastIndex, str.charAt(index - 1) !== '&' || !/^#\d+$/u.test(mt[2]!)]);
 		mt = re.exec(str);
 	}
 	if (str.length > lastIndex) {
