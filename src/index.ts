@@ -14,10 +14,19 @@ declare global {
 	const define: unknown;
 }
 
-let span: HTMLSpanElement;
+let textarea: HTMLTextAreaElement;
 if (typeof document === 'object') {
-	span = document.createElement('span');
+	textarea = document.createElement('textarea');
 }
+
+/**
+ * 解码HTML实体
+ * @param str 要解码的字符串
+ */
+const decodeHTML = (str: string): string => {
+	textarea.innerHTML = str;
+	return textarea.value;
+};
 
 /**
  * PHP的`rawurldecode`函数的JavaScript实现
@@ -26,16 +35,12 @@ if (typeof document === 'object') {
 export const rawurldecode = (str: string): string => decodeURIComponent(str.replace(/%(?![\da-f]{2})/giu, '%25'));
 
 /**
- * 解码标题
+ * 解码标题中的HTML实体和URL编码
  * @param title 标题
  */
 export const normalizeTitle = (title: string): string => {
 	const decoded = rawurldecode(title);
-	if (/[<>[\]|{}]/u.test(decoded)) {
-		return decoded;
-	}
-	span.innerHTML = decoded;
-	return span.textContent!;
+	return /[<>[\]|{}]/u.test(decoded) ? decoded : decodeHTML(decoded);
 };
 
 /**
