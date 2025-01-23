@@ -23,7 +23,7 @@ if (typeof document === 'object') {
  * 解码HTML实体
  * @param str 要解码的字符串
  */
-const decodeHTML = (str: string): string => {
+export const decodeHTML = (str: string): string => {
 	textarea.innerHTML = str;
 	return textarea.value;
 };
