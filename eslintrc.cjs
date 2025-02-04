@@ -862,6 +862,7 @@ module.exports = {
 						allowAsThisParameter: true,
 					},
 				],
+				'@typescript-eslint/no-misused-spread': 2,
 				'@typescript-eslint/no-namespace': [
 					2,
 					{

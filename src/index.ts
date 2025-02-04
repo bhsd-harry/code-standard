@@ -14,18 +14,16 @@ declare global {
 	const define: unknown;
 }
 
-let textarea: HTMLTextAreaElement;
-if (typeof document === 'object') {
-	textarea = document.createElement('textarea');
-}
+const textarea = /* #__PURE__ */
+	(() => typeof document === 'object' ? document.createElement('textarea') : undefined)();
 
 /**
  * 解码HTML实体
  * @param str 要解码的字符串
  */
 export const decodeHTML = (str: string): string => {
-	textarea.innerHTML = str;
-	return textarea.value;
+	textarea!.innerHTML = str;
+	return textarea!.value;
 };
 
 /**
