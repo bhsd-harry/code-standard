@@ -615,6 +615,12 @@ module.exports = {
 				excludeTags: ['description'],
 			},
 		],
+		'jsdoc/check-param-names': [
+			1,
+			{
+				disableMissingParamChecks: true,
+			},
+		],
 		'jsdoc/check-tag-names': 1,
 		'jsdoc/check-types': 1,
 		'jsdoc/multiline-blocks': 1,
