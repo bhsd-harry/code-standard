@@ -30,7 +30,8 @@ export const decodeHTML = (str: string): string => {
  * PHP的`rawurldecode`函数的JavaScript实现
  * @param str 要解码的字符串
  */
-export const rawurldecode = (str: string): string => decodeURIComponent(str.replace(/%(?![\da-f]{2})/giu, '%25'));
+export const rawurldecode = (str: string): string =>
+	decodeURIComponent(str.replace(/%(?![\da-f]{2})/giu, '%25'));
 
 /**
  * 解码标题中的HTML实体和URL编码
@@ -45,14 +46,10 @@ export const normalizeTitle = (title: string): string => {
  * 将0~1之间的数字转换为十六进制
  * @param d 0~1之间的数字
  */
-export const numToHex = (d: number): string => Math.round(d * 255).toString(16).padStart(2, '0');
+export const numToHex = (d: number): string =>
+	Math.round(d * 255).toString(16).padStart(2, '0');
 
-/**
- * 包含颜色时断开字符串
- * @param str 字符串
- * @param hsl 是否包含 HSL
- */
-export const splitColors = (str: string, hsl = true): [string, number, number, boolean][] => {
+const regex = /* #__PURE__ */ (() => {
 	const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\d_])`,
 		rgbValue = String.raw`(?:\d*\.)?\d+%?`,
 		hue = String.raw`(?:\d*\.)?\d+(?:deg|grad|rad|turn)?`,
@@ -65,11 +62,21 @@ export const splitColors = (str: string, hsl = true): [string, number, number, b
 			String.raw`${hue}\s+${rgbValue}\s+${rgbValue}(?:\s*\/\s*${rgbValue})?`
 		}|${
 			String.raw`${hue}${String.raw`\s*,\s*(?:\d*\.)?\d+%`.repeat(2)}(?:\s*,\s*${rgbValue})?`
-		})\s*\)`,
-		reFull = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu'),
-		reRGB = new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu'),
-		pieces: [string, number, number, boolean][] = [],
-		re = hsl ? reFull : reRGB;
+		})\s*\)`;
+	return {
+		full: new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu'),
+		rgb: new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu'),
+	};
+})();
+
+/**
+ * 包含颜色时断开字符串
+ * @param str 字符串
+ * @param hsl 是否包含 HSL
+ */
+export const splitColors = (str: string, hsl = true): [string, number, number, boolean][] => {
+	const pieces: [string, number, number, boolean][] = [],
+		re = regex[hsl ? 'full' : 'rgb'];
 	re.lastIndex = 0;
 	let mt = re.exec(str),
 		lastIndex = 0;
