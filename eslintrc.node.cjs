@@ -28,6 +28,12 @@ module.exports = {
 		'n/no-mixed-requires': 2,
 		'n/no-new-require': 2,
 		'n/no-path-concat': 2,
+		'n/no-unsupported-features/node-builtins': [
+			2,
+			{
+				ignores: ['fetch'],
+			},
+		],
 	},
 	settings: {
 		...config.settings,
