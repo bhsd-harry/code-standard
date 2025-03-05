@@ -1,3 +1,6 @@
+import {rules} from 'stylelint-config-recommended';
+import type {PublicApi, Warning} from 'stylelint';
+
 export const CDN = 'https://testingcf.jsdelivr.net';
 
 declare interface Require {
@@ -157,4 +160,16 @@ export const compareVersion = (version: string, baseVersion: string): boolean =>
 	const [major, minor] = parseVersion(version),
 		[baseMajor, baseMinor] = parseVersion(baseVersion);
 	return major > baseMajor || major === baseMajor && minor >= baseMinor;
+};
+
+export const styleLint = async (
+	stylelint: PublicApi,
+	code: string,
+	additionalRules?: Record<string, unknown>,
+): Promise<Warning[]> => {
+	const config = {
+		rules: {...rules, ...additionalRules},
+	};
+	return (await stylelint.lint({code, config})).results.flatMap(({warnings}) => warnings)
+		.filter(({text}) => !text.startsWith('Unknown rule '));
 };

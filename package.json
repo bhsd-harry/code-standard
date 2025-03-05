@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.6.7",
+	"version": "0.7.0",
 	"license": "MIT",
 	"author": "Bhsd",
 	"files": [
@@ -28,6 +28,10 @@
 		"lint:ts": "tsc --noEmit && eslint --cache .",
 		"lint": "npm run lint:ts"
 	},
+	"dependencies": {
+		"stylelint": "^16.14.1",
+		"stylelint-config-recommended": "^15.0.0"
+	},
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^3.1.0",
 		"@stylistic/stylelint-plugin": "^3.1.2",
@@ -48,8 +52,6 @@
 		"eslint-plugin-unicorn": "^56.0.1",
 		"http-server": "^14.1.1",
 		"mocha": "^11.1.0",
-		"stylelint": "^16.14.1",
-		"stylelint-config-recommended": "^15.0.0",
 		"typescript": "^5.7.3"
 	}
 }
