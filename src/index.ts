@@ -1,5 +1,3 @@
-import {rules} from 'stylelint-config-recommended';
-import type {PublicApi, Warning} from 'stylelint';
 import type {LanguageServiceBase} from 'wikiparser-node/extensions/typings';
 
 export const CDN = 'https://testingcf.jsdelivr.net';
@@ -163,38 +161,21 @@ export const compareVersion = (version: string, baseVersion: string): boolean =>
 	return major > baseMajor || major === baseMajor && minor >= baseMinor;
 };
 
-/**
- * 使用Stylelint检查CSS代码
- * @param stylelint Stylelint实例
- * @param code CSS代码
- * @param additionalRules 额外的规则
- */
-export const styleLint = async (
-	stylelint: PublicApi,
-	code: string,
-	additionalRules?: Record<string, unknown>,
-): Promise<Warning[]> => {
-	const config = {
-		rules: {...rules, ...additionalRules},
-	};
-	return (await stylelint.lint({code, config})).results.flatMap(({warnings}) => warnings)
-		.filter(({text}) => !text.startsWith('Unknown rule '));
-};
-
 const lsps = new WeakMap<object, LanguageServiceBase>();
 
 /**
  * 获取LSP
  * @param obj 关联对象
+ * @param include 是否嵌入
  */
-export const getLSP = (obj: object): LanguageServiceBase | undefined => {
+export const getLSP = (obj: object, include?: boolean): LanguageServiceBase | undefined => {
 	const path = 'npm/wikiparser-node/extensions/dist';
 	void loadScript(`${path}/base.min.js`, 'wikiparse');
 	void loadScript(`${path}/lsp.min.js`, 'wikiparse.LanguageService');
 	if (typeof wikiparse !== 'object' || !wikiparse.LanguageService || lsps.has(obj)) {
 		return lsps.get(obj);
 	}
-	const lsp = new wikiparse.LanguageService();
+	const lsp = new wikiparse.LanguageService(include);
 	lsps.set(obj, lsp);
 	return lsp;
 };
