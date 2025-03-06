@@ -198,3 +198,10 @@ export const getLSP = (obj: object): LanguageServiceBase | undefined => {
 	lsps.set(obj, lsp);
 	return lsp;
 };
+
+/**
+ * 清理内联样式中的`{`和`}`
+ * @param style 内联样式
+ */
+export const sanitizeInlineStyle = (style: string): string =>
+	style.replace(/[{}]/gu, p => p === '{' ? '｛' : '｝');
