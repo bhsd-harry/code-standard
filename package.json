@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"license": "MIT",
 	"author": "Bhsd",
 	"files": [
@@ -19,6 +19,11 @@
 			"import": "./dist/stylelint.mjs",
 			"require": "./dist/stylelint.js"
 		},
+		"./dist/cm": {
+			"types": "./dist/cm.d.ts",
+			"import": "./dist/cm.mjs",
+			"require": "./dist/cm.js"
+		},
 		"./*.cjs": "./*.cjs",
 		"./package.json": "./package.json"
 	},
@@ -29,14 +34,12 @@
 	},
 	"scripts": {
 		"prepublishOnly": "npm run build",
-		"build": "tsc --emitDeclarationOnly && esbuild src/index.ts src/stylelint.ts --charset=utf8 --target=es2024 --format=cjs --outdir=dist && esbuild src/index.ts src/stylelint.ts --charset=utf8 --target=es2024 --format=esm --outdir=dist --out-extension:.js=.mjs",
+		"build": "tsc --emitDeclarationOnly && esbuild src/* --charset=utf8 --target=es2024 --format=cjs --outdir=dist && esbuild src/* --charset=utf8 --target=es2024 --format=esm --outdir=dist --out-extension:.js=.mjs && rm dist/global.*",
 		"lint:ts": "tsc --noEmit && eslint --cache .",
 		"lint": "npm run lint:ts"
 	},
 	"dependencies": {
-		"stylelint": "^16.14.1",
-		"stylelint-config-recommended": "^15.0.0",
-		"wikiparser-node": "^1.17.1"
+		"stylelint-config-recommended": "^15.0.0"
 	},
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^3.1.0",
@@ -58,6 +61,8 @@
 		"eslint-plugin-unicorn": "^56.0.1",
 		"http-server": "^14.1.1",
 		"mocha": "^11.1.0",
-		"typescript": "^5.7.3"
+		"stylelint": "^16.14.1",
+		"typescript": "^5.7.3",
+		"wikiparser-node": "^1.17.1"
 	}
 }
