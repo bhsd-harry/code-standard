@@ -21,6 +21,8 @@ declare interface Keywords {
 	redirection: string[];
 }
 
+export const otherParserFunctions = new Set(['msg', 'raw', 'subst', 'safesubst']);
+
 /**
  * 将魔术字信息转换为CodeMirror接受的设置
  * @param magicWords 完整魔术字列表
@@ -63,13 +65,13 @@ export const getParserConfig = (minConfig: Config, mwConfig: MwConfig): Config =
 	return {
 		...minConfig,
 		ext: Object.keys(tags),
-		parserFunction: [insensitive, {...sensitive, '=': '='}, [], []],
+		parserFunction: [{...insensitive}, {...sensitive, '=': '='}, [], []],
 		doubleUnderscore: [
 			...behaviorSwitch.map(entries => entries.map(([k]) => k)) as [string[], string[]],
 			...behaviorSwitch.map(Object.fromEntries) as [Record<string, string>, Record<string, string>],
 		],
 		protocol: urlProtocols.replace(/\|\\?\/\\?\/$|\\(?=[:/])/gu, ''),
-		...variableIDs && {variable: variableIDs},
+		...variableIDs && {variable: [...new Set([...variableIDs, '='])]},
 	};
 };
 
