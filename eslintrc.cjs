@@ -439,7 +439,7 @@ module.exports = {
 			2,
 			'single',
 			{
-				allowTemplateLiterals: true,
+				allowTemplateLiterals: 'avoidEscape',
 				avoidEscape: true,
 			},
 		],
