@@ -12,6 +12,8 @@ declare interface Obj {
 	[x: string]: Obj | undefined;
 }
 
+export type RegexGetter<T = string> = (s: T) => RegExp;
+
 declare global {
 	const define: unknown;
 }
@@ -193,4 +195,36 @@ export const sanitizeInlineStyle = (style: string): string =>
  */
 export const refreshStdout = (str: string): void => {
 	process.stdout.write(`\x1B[K\x1B[?7l${str}\x1B[?7h\r`);
+};
+
+/**
+ * 缓存生成的正则表达式
+ * @param f 生成正则表达式的函数
+ */
+export const getRegex = (f: RegexGetter): RegexGetter => s => {
+	const regexp = new Map<string, RegExp>();
+	if (regexp.has(s)) {
+		const re = regexp.get(s)!;
+		re.lastIndex = 0;
+		return re;
+	}
+	const re = f(s);
+	regexp.set(s, re);
+	return re;
+};
+
+/**
+ * 缓存生成的正则表达式
+ * @param f 生成正则表达式的函数
+ */
+export const getObjRegex = <T extends object>(f: RegexGetter<T>): RegexGetter<T> => s => {
+	const regexp = new WeakMap<T, RegExp>();
+	if (regexp.has(s)) {
+		const re = regexp.get(s)!;
+		re.lastIndex = 0;
+		return re;
+	}
+	const re = f(s);
+	regexp.set(s, re);
+	return re;
 };
