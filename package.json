@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.9.0",
+	"version": "0.9.1",
 	"license": "MIT",
 	"author": "Bhsd",
 	"files": [
@@ -63,6 +63,6 @@
 		"mocha": "^11.1.0",
 		"stylelint": "^16.14.1",
 		"typescript": "^5.7.3",
-		"wikiparser-node": "^1.18.2"
+		"wikiparser-node": "^1.18.3"
 	}
 }
