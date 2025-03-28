@@ -219,3 +219,9 @@ export function getRegex<T extends string | object = string>(f: RegexGetter<T>):
 		return re;
 	};
 }
+
+/**
+ * 缓存生成的正则表达式
+ * @param f 生成正则表达式的函数
+ */
+export const getObjRegex = getRegex;
