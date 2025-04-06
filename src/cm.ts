@@ -1,4 +1,4 @@
-import type {Config} from 'wikiparser-node/base';
+import type {ConfigData} from 'wikiparser-node/dist/base';
 
 export interface MwConfig {
 	readonly tags: Record<string, true>;
@@ -46,7 +46,7 @@ export const getConfig = (magicWords: MagicWord[], rule: MagicRule, flip?: boole
  * @param minConfig 基础Config
  * @param mwConfig MwConfig
  */
-export const getParserConfig = (minConfig: Config, mwConfig: MwConfig): Config => {
+export const getParserConfig = (minConfig: ConfigData, mwConfig: MwConfig): ConfigData => {
 	const {tags, doubleUnderscore, urlProtocols, functionSynonyms, variableIDs} = mwConfig,
 		[insensitive, sensitive] = functionSynonyms,
 		behaviorSwitch = doubleUnderscore.map(
