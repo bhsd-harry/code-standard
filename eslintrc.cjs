@@ -720,6 +720,7 @@ module.exports = {
 				'@stylistic/quotes': 0,
 				strict: 0,
 				'unicorn/prefer-string-raw': 0,
+				'unicorn/numeric-separators-style': 0,
 			},
 		},
 		{
