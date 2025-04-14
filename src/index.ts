@@ -54,7 +54,7 @@ export const numToHex = (d: number): string =>
 	Math.round(d * 255).toString(16).padStart(2, '0');
 
 const regex = /* #__PURE__ */ (() => {
-	const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\d_])`,
+	const hexColor = String.raw`#(?:[\da-f]{3,4}|(?:[\da-f]{2}){3,4})(?![\p{L}\p{N}_])`,
 		rgbValue = String.raw`(?:\d*\.)?\d+%?`,
 		hue = String.raw`(?:\d*\.)?\d+(?:deg|grad|rad|turn)?`,
 		rgbColor = String.raw`rgba?\(\s*(?:${
@@ -68,8 +68,8 @@ const regex = /* #__PURE__ */ (() => {
 			String.raw`${hue}${String.raw`\s*,\s*(?:\d*\.)?\d+%`.repeat(2)}(?:\s*,\s*${rgbValue})?`
 		})\s*\)`;
 	return {
-		full: new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu'),
-		rgb: new RegExp(String.raw`(^|[^\p{L}\d_])(${hexColor}|${rgbColor})`, 'giu'),
+		full: new RegExp(String.raw`(^|[^\p{L}\p{N}_])(${hexColor}|${rgbColor}|${hslColor})`, 'giu'),
+		rgb: new RegExp(String.raw`(^|[^\p{L}\p{N}_])(${hexColor}|${rgbColor})`, 'giu'),
 	};
 })();
 
