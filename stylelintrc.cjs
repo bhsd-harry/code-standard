@@ -17,6 +17,7 @@ module.exports = {
 		'declaration-block-single-line-max-declarations': 1,
 		'number-max-precision': 2,
 		'alpha-value-notation': 'number',
+		'color-function-alias-notation': 'without-alpha',
 		'color-function-notation': 'legacy',
 		'color-hex-length': 'short',
 		'font-weight-notation': 'named-where-possible',

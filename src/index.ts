@@ -112,7 +112,7 @@ export const loadScript = (src: string, globalConst: string, amd?: boolean): Pro
 		return loading.get(src)!;
 	}
 	const promise = new Promise<void>(resolve => {
-		const path = `${CDN}/${src}`;
+		const path = /^https?:\/\//iu.test(src) ? src : `${CDN}/${src}`;
 		let obj: Obj | undefined = globalThis as unknown as Obj;
 		for (const prop of globalConst.split('.')) {
 			obj = obj?.[prop];
