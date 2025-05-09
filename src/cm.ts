@@ -7,6 +7,8 @@ export interface MwConfig {
 	functionSynonyms: [Record<string, string>, Record<string, string>];
 	doubleUnderscore: [Record<string, unknown>, Record<string, unknown>];
 	variableIDs?: string[];
+	functionHooks?: string[];
+	redirection?: string[];
 }
 
 export interface MagicWord {
@@ -47,7 +49,15 @@ export const getConfig = (magicWords: MagicWord[], rule: MagicRule, flip?: boole
  * @param mwConfig MwConfig
  */
 export const getParserConfig = (minConfig: ConfigData, mwConfig: MwConfig): ConfigData => {
-	const {tags, doubleUnderscore, urlProtocols, functionSynonyms, variableIDs} = mwConfig,
+	const {
+			tags,
+			doubleUnderscore,
+			urlProtocols,
+			functionSynonyms,
+			variableIDs,
+			functionHooks,
+			redirection,
+		} = mwConfig,
 		[insensitive, sensitive] = functionSynonyms,
 		behaviorSwitch = doubleUnderscore.map(
 			(obj, i) => Object.entries(obj).map(([k, v]) => [
@@ -72,6 +82,8 @@ export const getParserConfig = (minConfig: ConfigData, mwConfig: MwConfig): Conf
 		],
 		protocol: urlProtocols.replace(/\|\\?\/\\?\/$|\\(?=[:/])/gu, ''),
 		...variableIDs && {variable: [...new Set([...variableIDs, '='])]},
+		...functionHooks && {functionHook: [...new Set([...functionHooks.map(s => s.toLowerCase()), 'msgnw'])]},
+		...redirection && {redirection: redirection.map(s => s.toLowerCase())},
 	};
 };
 
