@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import {rules} from 'stylelint-config-recommended';
 import type {PublicApi, Warning} from 'stylelint';
 
@@ -6,20 +7,34 @@ import type {PublicApi, Warning} from 'stylelint';
  * @param stylelint Stylelint实例
  * @param code CSS代码
  * @param additionalRules 额外的规则
- * @param browser 是否为浏览器环境
+ * @param fix 是否修正
  */
-export const styleLint = async (
+export function styleLint(
 	stylelint: PublicApi,
 	code: string,
 	additionalRules?: Record<string, unknown>,
-	browser?: boolean,
-): Promise<Warning[]> => {
+	// @ts-expect-error required parameter
+	fix: true,
+): Promise<string>;
+export function styleLint(
+	stylelint: PublicApi,
+	code: string,
+	additionalRules?: Record<string, unknown>,
+): Promise<Warning[]>;
+export async function styleLint(
+	stylelint: PublicApi,
+	code: string,
+	additionalRules?: Record<string, unknown>,
+	fix?: true,
+): Promise<string | Warning[]> {
 	const config = {
 		rules: {...rules, ...additionalRules},
+		computeEditInfo: true,
+		fix: fix || false,
 	};
-	if (browser) {
-		delete config.rules['selector-type-no-unknown'];
+	if (fix) {
+		return (await stylelint.lint({code, config})).code!;
 	}
 	return (await stylelint.lint({code, config})).results.flatMap(({warnings}) => warnings)
 		.filter(({text}) => !text.startsWith('Unknown rule '));
-};
+}
