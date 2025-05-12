@@ -15,6 +15,7 @@ export const styleLint = async (
 	const config = {
 		rules: {...rules, ...additionalRules},
 	};
+	delete config.rules['selector-type-no-unknown'];
 	return (await stylelint.lint({code, config})).results.flatMap(({warnings}) => warnings)
 		.filter(({text}) => !text.startsWith('Unknown rule '));
 };
