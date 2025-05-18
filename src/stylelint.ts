@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import {rules} from 'stylelint-config-recommended';
-import type {PublicApi, Warning} from 'stylelint';
+import {rules as recommended} from 'stylelint-config-recommended';
+import type {PublicApi, Warning, Config} from 'stylelint';
 
 /**
  * 使用Stylelint检查CSS代码
@@ -12,26 +12,39 @@ import type {PublicApi, Warning} from 'stylelint';
 export function styleLint(
 	stylelint: PublicApi,
 	code: string,
-	additionalRules?: Record<string, unknown>,
+	additionalRules?: Config | Config['rules'] | null,
 	// @ts-expect-error required parameter
 	fix: true,
 ): Promise<string>;
 export function styleLint(
 	stylelint: PublicApi,
 	code: string,
-	additionalRules?: Record<string, unknown>,
+	additionalRules?: Config | Config['rules'] | null,
 ): Promise<Warning[]>;
 export async function styleLint(
 	stylelint: PublicApi,
 	code: string,
-	additionalRules?: Record<string, unknown>,
+	additionalConfig?: Config | Config['rules'] | null,
 	fix?: true,
 ): Promise<string | Warning[]> {
-	const config = {
-		rules: {...rules, ...additionalRules},
-		computeEditInfo: true,
-		fix: fix || false,
-	};
+	const isConfig = additionalConfig && ('extends' in additionalConfig || 'rules' in additionalConfig),
+		additionalRules: Config['rules'] | null = isConfig ? additionalConfig.rules : additionalConfig,
+		rules = isConfig && 'extends' in additionalConfig
+			&& additionalConfig.extends !== 'stylelint-config-recommended'
+			&& !(
+				Array.isArray(additionalConfig.extends)
+				&& additionalConfig.extends.includes('stylelint-config-recommended')
+			)
+			? additionalRules ?? {}
+			: {...recommended, ...additionalRules},
+		config: Config = {
+			rules,
+			computeEditInfo: true,
+			fix: fix || false,
+		};
+	if (isConfig) {
+		additionalConfig.rules = rules;
+	}
 	if (fix) {
 		return (await stylelint.lint({code, config})).code!;
 	}
