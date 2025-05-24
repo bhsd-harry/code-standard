@@ -1,6 +1,5 @@
+import type {ConfigData} from 'wikiparser-node';
 import type {LanguageServiceBase} from 'wikiparser-node/extensions/typings';
-
-export const CDN = 'https://testingcf.jsdelivr.net';
 
 declare interface Require {
 	config(config: {paths?: Record<string, string>}): void;
@@ -14,9 +13,13 @@ declare interface Obj {
 
 export type RegexGetter<T = string> = (s: T) => RegExp;
 
+declare type ConfigGetter = () => Promise<ConfigData>;
+
 declare global {
 	const define: unknown;
 }
+
+export const CDN = 'https://testingcf.jsdelivr.net';
 
 const textarea = /* #__PURE__ */
 	(() => typeof document === 'object' ? document.createElement('textarea') : undefined)();
@@ -163,17 +166,50 @@ export const compareVersion = (version: string, baseVersion: string): boolean =>
 	return major > baseMajor || major === baseMajor && minor >= baseMinor;
 };
 
+let configLoaded = false,
+	i18nLoaded = false;
+
+/**
+ * 加载 wikiparse
+ * @param getConfig 获取解析配置的函数
+ * @param lang 语言代码
+ */
+export const getWikiparse = async (getConfig?: ConfigGetter, lang?: string): Promise<void> => {
+	const dir = 'extensions/dist';
+	await loadScript(`npm/wikiparser-node/${dir}/base.min.js`, 'wikiparse');
+	await loadScript(`${wikiparse.CDN}/${dir}/lsp.min.js`, 'wikiparse.LanguageService');
+	if (!configLoaded && typeof getConfig === 'function') {
+		configLoaded = true;
+		try {
+			wikiparse.setConfig(await getConfig());
+		} catch {}
+	}
+	if (!i18nLoaded && typeof lang === 'string') {
+		i18nLoaded = true;
+		try {
+			const i18n: Record<string, string> =
+				await (await fetch(`${wikiparse.CDN}/i18n/${lang.toLowerCase()}.json`)).json();
+			wikiparse.setI18N(i18n);
+		} catch {}
+	}
+};
+
 const lsps = new WeakMap<object, LanguageServiceBase>();
 
 /**
  * 获取LSP
  * @param obj 关联对象
  * @param include 是否嵌入
+ * @param getConfig 获取解析配置的函数
+ * @param lang 语言代码
  */
-export const getLSP = (obj: object, include?: boolean): LanguageServiceBase | undefined => {
-	const path = 'npm/wikiparser-node/extensions/dist';
-	void loadScript(`${path}/base.min.js`, 'wikiparse');
-	void loadScript(`${path}/lsp.min.js`, 'wikiparse.LanguageService');
+export const getLSP = (
+	obj: object,
+	include?: boolean,
+	getConfig?: ConfigGetter,
+	lang?: string,
+): LanguageServiceBase | undefined => {
+	void getWikiparse(getConfig, lang);
 	if (typeof wikiparse !== 'object' || !wikiparse.LanguageService || lsps.has(obj)) {
 		return lsps.get(obj);
 	}
