@@ -172,9 +172,9 @@ let configLoaded = false,
 /**
  * 加载 wikiparse
  * @param getConfig 获取解析配置的函数
- * @param lang 语言代码
+ * @param langs 语言代码
  */
-export const getWikiparse = async (getConfig?: ConfigGetter, lang?: string): Promise<void> => {
+export const getWikiparse = async (getConfig?: ConfigGetter, langs?: string | string[]): Promise<void> => {
 	const dir = 'extensions/dist';
 	await loadScript(`npm/wikiparser-node/${dir}/base.min.js`, 'wikiparse');
 	await loadScript(`${wikiparse.CDN}/${dir}/lsp.min.js`, 'wikiparse.LanguageService');
@@ -184,13 +184,16 @@ export const getWikiparse = async (getConfig?: ConfigGetter, lang?: string): Pro
 			wikiparse.setConfig(await getConfig());
 		} catch {}
 	}
-	if (!i18nLoaded && typeof lang === 'string') {
+	if (!i18nLoaded && langs) {
 		i18nLoaded = true;
-		try {
-			const i18n: Record<string, string> =
-				await (await fetch(`${wikiparse.CDN}/i18n/${lang.toLowerCase()}.json`)).json();
-			wikiparse.setI18N(i18n);
-		} catch {}
+		for (const lang of Array.isArray(langs) ? langs : [langs]) {
+			try {
+				const i18n: Record<string, string> =
+					await (await fetch(`${wikiparse.CDN}/i18n/${lang.toLowerCase()}.json`)).json();
+				wikiparse.setI18N(i18n);
+				break;
+			} catch {}
+		}
 	}
 };
 
