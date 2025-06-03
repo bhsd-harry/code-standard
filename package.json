@@ -29,9 +29,6 @@
 	},
 	"types": "./dist/index.d.ts",
 	"sideEffects": false,
-	"bin": {
-		"copy-dev": "bin/dev.cjs"
-	},
 	"scripts": {
 		"prepublishOnly": "npm run build",
 		"build": "tsc --emitDeclarationOnly && esbuild src/* --charset=utf8 --target=es2024 --format=cjs --outdir=dist && esbuild src/* --charset=utf8 --target=es2024 --format=esm --outdir=dist --out-extension:.js=.mjs && rm dist/global.*",
@@ -44,7 +41,6 @@
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^3.1.0",
 		"@stylistic/stylelint-plugin": "^3.1.2",
-		"@types/mocha": "^10.0.10",
 		"@types/node": "^22.13.1",
 		"@typescript-eslint/eslint-plugin": "^8.29.0",
 		"@typescript-eslint/parser": "^8.29.0",
@@ -54,15 +50,12 @@
 		"eslint-plugin-eslint-comments": "^3.2.0",
 		"eslint-plugin-jsdoc": "^50.6.3",
 		"eslint-plugin-json-es": "^1.6.0",
-		"eslint-plugin-markdown": "4.0.1",
 		"eslint-plugin-n": "^17.15.1",
 		"eslint-plugin-promise": "^7.2.1",
 		"eslint-plugin-regexp": "^2.7.0",
 		"eslint-plugin-unicorn": "^56.0.1",
-		"http-server": "^14.1.1",
-		"mocha": "^11.1.0",
 		"stylelint": "^16.20.0",
 		"typescript": "^5.8.2",
-		"wikiparser-node": "^1.20.3"
+		"wikiparser-node": "^1.21.1"
 	}
 }
