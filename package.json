@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/common",
-	"version": "0.11.0",
+	"version": "0.12.0",
 	"license": "MIT",
 	"author": "Bhsd",
 	"files": [
@@ -24,6 +24,11 @@
 			"import": "./dist/cm.mjs",
 			"require": "./dist/cm.js"
 		},
+		"./dist/test": {
+			"types": "./dist/test.d.ts",
+			"import": "./dist/test.js",
+			"require": "./dist/test.js"
+		},
 		"./*.cjs": "./*.cjs",
 		"./package.json": "./package.json"
 	},
@@ -31,7 +36,7 @@
 	"sideEffects": false,
 	"scripts": {
 		"prepublishOnly": "npm run build",
-		"build": "tsc --emitDeclarationOnly && esbuild src/* --charset=utf8 --target=es2024 --format=cjs --outdir=dist && esbuild src/* --charset=utf8 --target=es2024 --format=esm --outdir=dist --out-extension:.js=.mjs && rm dist/global.*",
+		"build": "tsc && esbuild src/* --charset=utf8 --target=es2024 --format=cjs --outdir=dist && esbuild test/* --charset=utf8 --target=es2024 --format=cjs --outdir=dist --bundle --platform=node --external:wikiparser-node && esbuild src/* --charset=utf8 --target=es2024 --format=esm --outdir=dist --out-extension:.js=.mjs && mv dist/*/*.d.ts dist/ && rm dist/global.*",
 		"lint:ts": "tsc --noEmit && eslint --cache .",
 		"lint": "npm run lint:ts"
 	},
@@ -41,6 +46,7 @@
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^3.1.0",
 		"@stylistic/stylelint-plugin": "^3.1.2",
+		"@types/mocha": "^10.0.10",
 		"@types/node": "^22.13.1",
 		"@typescript-eslint/eslint-plugin": "^8.29.0",
 		"@typescript-eslint/parser": "^8.29.0",

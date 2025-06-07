@@ -1,11 +1,13 @@
 {
 	"include": [
-		"src/*.ts"
+		"src/*.ts",
+		"test/*.ts"
 	],
 	"compilerOptions": {
 		"target": "ES2019",
 		"module": "NodeNext",
 		"declaration": true,
+		"emitDeclarationOnly": true,
 		"outDir": "dist",
 		"alwaysStrict": true,
 		"exactOptionalPropertyTypes": true,
