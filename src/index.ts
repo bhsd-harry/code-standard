@@ -166,6 +166,38 @@ export const compareVersion = (version: string, baseVersion: string): boolean =>
 	return major > baseMajor || major === baseMajor && minor >= baseMinor;
 };
 
+/**
+ * 加载 I18N
+ * @param url 下载地址
+ * @param cur 当前版本号
+ * @param languages 语言代码列表
+ * @param key 存储的键名
+ * @param i18n 已存储的I18N对象
+ * @throws `Error` 无法获取语言包
+ */
+export const setI18N = async (
+	url: string,
+	cur: string,
+	languages: string[] | string,
+	key: string,
+	i18n: Record<string, string> = getObject(key) ?? {},
+): Promise<Record<string, string>> => {
+	const {version, lang} = i18n,
+		langs = Array.isArray(languages) ? languages : [languages];
+	if (version === cur && langs.includes(lang!)) {
+		return i18n;
+	}
+	for (const language of langs) {
+		try {
+			const res = await fetch(`${url}/${language.toLowerCase()}.json`);
+			Object.assign(i18n, await res.json(), {version: cur, lang: language});
+			setObject(key, i18n);
+			return i18n;
+		} catch {}
+	}
+	throw new Error(`Failed to fetch the localization for ${langs[0]}.`);
+};
+
 let configLoaded = false,
 	i18nLoaded = false;
 
@@ -186,13 +218,12 @@ export const getWikiparse = async (getConfig?: ConfigGetter, langs?: string | st
 	}
 	if (!i18nLoaded && langs) {
 		i18nLoaded = true;
-		for (const lang of Array.isArray(langs) ? langs : [langs]) {
-			try {
-				const i18n: Record<string, string> =
-					await (await fetch(`${wikiparse.CDN}/i18n/${lang.toLowerCase()}.json`)).json();
-				wikiparse.setI18N(i18n);
-				break;
-			} catch {}
+		const key = 'wikiparse-i18n',
+			{version} = wikiparse;
+		try {
+			wikiparse.setI18N(await setI18N(`${wikiparse.CDN}/i18n`, version, langs, key));
+		} catch {
+			setObject(key, {version, lang: 'en'});
 		}
 	}
 };
