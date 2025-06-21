@@ -205,11 +205,20 @@ let configLoaded = false,
  * 加载 wikiparse
  * @param getConfig 获取解析配置的函数
  * @param langs 语言代码
+ * @param cdn CDN 地址
  */
-export const getWikiparse = async (getConfig?: ConfigGetter, langs?: string | string[]): Promise<void> => {
+export const getWikiparse = async (
+	getConfig?: ConfigGetter,
+	langs?: string | string[],
+	cdn?: string,
+): Promise<void> => {
 	const dir = 'extensions/dist';
-	await loadScript(`npm/wikiparser-node/${dir}/base.min.js`, 'wikiparse');
-	await loadScript(`${wikiparse.CDN}/${dir}/lsp.min.js`, 'wikiparse.LanguageService');
+	let src = cdn || `npm/wikiparser-node/${dir}/base.min.js`;
+	if (!src.endsWith('.js')) {
+		src = `${src}${src.endsWith('/') ? '' : '/'}${dir}/base.js`;
+	}
+	await loadScript(src, 'wikiparse');
+	await loadScript(`${wikiparse.CDN}/${dir}/lsp.js`, 'wikiparse.LanguageService');
 	if (!configLoaded && typeof getConfig === 'function') {
 		configLoaded = true;
 		try {
