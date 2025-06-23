@@ -21,7 +21,10 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 'latest',
 	},
-	ignorePatterns: ['dist/'],
+	ignorePatterns: [
+		'dist/',
+		'build/',
+	],
 	rules: {
 		'array-callback-return': 2,
 		'no-cond-assign': [

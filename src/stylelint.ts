@@ -48,6 +48,6 @@ export async function styleLint(
 	if (fix) {
 		return (await stylelint.lint({code, config})).code!;
 	}
-	return (await stylelint.lint({code, config})).results.flatMap(({warnings}) => warnings)
-		.filter(({text}) => !text.startsWith('Unknown rule '));
+	const [result] = (await stylelint.lint({code, config})).results;
+	return result!.warnings.filter(({text}) => !text.startsWith('Unknown rule '));
 }
