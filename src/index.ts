@@ -188,8 +188,13 @@ export const setI18N = async (
 		return i18n;
 	}
 	for (const language of langs) {
+		const l = language.toLowerCase();
+		// @ts-expect-error build-time constant
+		if (!($LANGS as string[]).includes(l)) {
+			continue;
+		}
 		try {
-			const res = await fetch(`${url}/${language.toLowerCase()}.json`);
+			const res = await fetch(`${url}/${l}.json`);
 			Object.assign(i18n, await res.json(), {version: cur, lang: language});
 			setObject(key, i18n);
 			return i18n;
