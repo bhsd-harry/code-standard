@@ -171,6 +171,7 @@ export const compareVersion = (version: string, baseVersion: string): boolean =>
  * @param url 下载地址
  * @param cur 当前版本号
  * @param languages 语言代码列表
+ * @param acceptableLangs 可接受的语言代码列表
  * @param key 存储的键名
  * @param i18n 已存储的I18N对象
  * @throws `Error` 无法获取语言包
@@ -179,6 +180,7 @@ export const setI18N = async (
 	url: string,
 	cur: string,
 	languages: string[] | string,
+	acceptableLangs: string[],
 	key: string,
 	i18n: Record<string, string> = getObject(key) ?? {},
 ): Promise<Record<string, string>> => {
@@ -189,8 +191,7 @@ export const setI18N = async (
 	}
 	for (const language of langs) {
 		const l = language.toLowerCase();
-		// @ts-expect-error build-time constant
-		if (!($LANGS as string[]).includes(l)) {
+		if (!acceptableLangs.includes(l)) {
 			continue;
 		}
 		try {
@@ -235,7 +236,8 @@ export const getWikiparse = async (
 		const key = 'wikiparse-i18n',
 			{version} = wikiparse;
 		try {
-			wikiparse.setI18N(await setI18N(`${wikiparse.CDN}/i18n`, version, langs, key));
+			// @ts-expect-error build-time constant
+			wikiparse.setI18N(await setI18N(`${wikiparse.CDN}/i18n`, version, langs, $LANGS as string[], key));
 		} catch {
 			setObject(key, {version, lang: 'en'});
 		}
