@@ -19,7 +19,8 @@ declare global {
 	const define: unknown;
 }
 
-export const CDN = 'https://testingcf.jsdelivr.net';
+export const CDN = 'https://testingcf.jsdelivr.net',
+	wmf = 'wiktionary|wiki(?:pedia|books|news|quote|source|versity|voyage)';
 
 const textarea = /* #__PURE__ */
 	(() => typeof document === 'object' ? document.createElement('textarea') : undefined)();
