@@ -292,16 +292,17 @@ export function getRegex(f: RegexGetter): RegexGetter;
 export function getRegex<T extends object>(f: RegexGetter<T>): RegexGetter<T>;
 export function getRegex<T extends string | object = string>(f: RegexGetter<T>): RegexGetter<T> {
 /* eslint-enable jsdoc/require-jsdoc */
+	const map = new Map<T, RegExp>(),
+		weakMap = new WeakMap<T & object, RegExp>();
 	return s => {
-		// @ts-expect-error function overload
-		const regexp = new (typeof s === 'string' ? Map : WeakMap)<T, RegExp>();
-		if (regexp.has(s)) {
-			const re = regexp.get(s)!;
+		const regexp = typeof s === 'string' ? map : weakMap;
+		if (regexp.has(s as T & object)) {
+			const re = regexp.get(s as T & object)!;
 			re.lastIndex = 0;
 			return re;
 		}
 		const re = f(s);
-		regexp.set(s, re);
+		regexp.set(s as T & object, re);
 		return re;
 	};
 }

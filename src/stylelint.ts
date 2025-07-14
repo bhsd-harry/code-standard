@@ -6,20 +6,20 @@ import type {PublicApi, Warning, Config} from 'stylelint';
  * 使用Stylelint检查CSS代码
  * @param stylelint Stylelint实例
  * @param code CSS代码
- * @param additionalRules 额外的规则
+ * @param additionalConfig 额外的规则
  * @param fix 是否修正
  */
 export function styleLint(
 	stylelint: PublicApi,
 	code: string,
-	additionalRules?: Config | Config['rules'] | null,
+	additionalConfig?: Config | Config['rules'] | null,
 	// @ts-expect-error required parameter
 	fix: true,
 ): Promise<string>;
 export function styleLint(
 	stylelint: PublicApi,
 	code: string,
-	additionalRules?: Config | Config['rules'] | null,
+	additionalConfig?: Config | Config['rules'] | null,
 ): Promise<Warning[]>;
 export async function styleLint(
 	stylelint: PublicApi,
