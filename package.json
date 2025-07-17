@@ -1,67 +1,29 @@
 {
-	"name": "@bhsd/common",
-	"version": "0.15.0",
+	"name": "@bhsd/code-standard",
+	"version": "1.0.0",
+	"homepage": "https://github.com/bhsd-harry/code-standard#readme",
+	"bugs": {
+		"url": "https://github.com/bhsd-harry/code-standard/issues"
+	},
 	"license": "MIT",
 	"author": "Bhsd",
 	"files": [
-		"/dist/",
 		"*.cjs",
 		"!.eslintrc.cjs"
 	],
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.mjs",
-			"require": "./dist/index.js"
-		},
-		"./dist/stylelint": {
-			"types": "./dist/stylelint.d.ts",
-			"import": "./dist/stylelint.mjs",
-			"require": "./dist/stylelint.js"
-		},
-		"./dist/cm": {
-			"types": "./dist/cm.d.ts",
-			"import": "./dist/cm.mjs",
-			"require": "./dist/cm.js"
-		},
-		"./dist/test": {
-			"types": "./dist/test.d.ts",
-			"import": "./dist/test.js",
-			"require": "./dist/test.js"
-		},
-		"./*.cjs": "./*.cjs",
-		"./package.json": "./package.json"
-	},
-	"types": "./dist/index.d.ts",
-	"sideEffects": false,
 	"scripts": {
-		"prepublishOnly": "npm run build",
-		"build": "tsc && node build.js && esbuild test/* --charset=utf8 --target=es2024 --format=cjs --outdir=dist --bundle --platform=node --external:wikiparser-node && mv dist/*/*.d.ts dist/ && rm dist/global.*",
-		"lint:ts": "tsc --noEmit && eslint --cache .",
-		"lint": "npm run lint:ts"
-	},
-	"dependencies": {
-		"stylelint-config-recommended": "^16.0.0"
+		"lint": "eslint --cache ."
 	},
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^3.1.0",
-		"@stylistic/stylelint-plugin": "^3.1.2",
-		"@types/mocha": "^10.0.10",
 		"@types/node": "^24.0.10",
-		"@typescript-eslint/eslint-plugin": "^8.35.1",
-		"@typescript-eslint/parser": "^8.35.1",
-		"esbuild": "^0.25.5",
 		"eslint": "^8.57.1",
-		"eslint-plugin-es-x": "^8.7.0",
 		"eslint-plugin-eslint-comments": "^3.2.0",
 		"eslint-plugin-jsdoc": "^51.3.3",
 		"eslint-plugin-json-es": "^1.6.0",
 		"eslint-plugin-n": "^17.20.0",
 		"eslint-plugin-promise": "^7.2.1",
 		"eslint-plugin-regexp": "^2.9.0",
-		"eslint-plugin-unicorn": "^56.0.1",
-		"stylelint": "^16.21.1",
-		"typescript": "^5.8.2",
-		"wikiparser-node": "^1.21.3"
+		"eslint-plugin-unicorn": "^56.0.1"
 	}
 }

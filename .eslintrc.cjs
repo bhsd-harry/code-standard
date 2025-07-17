@@ -1,16 +1,5 @@
 'use strict';
 
-const config = require('./eslintrc.browser.cjs');
+const config = require('./eslintrc.node.cjs');
 
-module.exports = {
-	...config,
-	overrides: [
-		...config.overrides,
-		{
-			files: '**/*.cjs',
-			env: {
-				node: true,
-			},
-		},
-	],
-};
+module.exports = config;
