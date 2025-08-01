@@ -12,14 +12,15 @@
 		"!.eslintrc.cjs"
 	],
 	"scripts": {
-		"lint": "eslint --cache ."
+		"lint:ts": "eslint --cache .",
+		"lint": "npm run lint:ts"
 	},
 	"devDependencies": {
 		"@stylistic/eslint-plugin": "^3.1.0",
 		"@types/node": "^24.0.10",
 		"eslint": "^8.57.1",
 		"eslint-plugin-eslint-comments": "^3.2.0",
-		"eslint-plugin-jsdoc": "^51.3.3",
+		"eslint-plugin-jsdoc": "^52.0.2",
 		"eslint-plugin-json-es": "^1.6.0",
 		"eslint-plugin-n": "^17.20.0",
 		"eslint-plugin-promise": "^7.2.1",
