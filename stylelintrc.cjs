@@ -2,7 +2,10 @@
 
 module.exports = {
 	extends: 'stylelint-config-recommended',
-	plugins: ['@stylistic/stylelint-plugin'],
+	plugins: [
+		'stylelint-plugin-use-baseline',
+		'@stylistic/stylelint-plugin',
+	],
 	rules: {
 		'declaration-property-value-no-unknown': true,
 		'no-unknown-animations': true,
@@ -30,6 +33,12 @@ module.exports = {
 		'declaration-block-no-redundant-longhand-properties': true,
 		'shorthand-property-no-redundant-values': true,
 		'comment-whitespace-inside': 'always',
+		'plugin/use-baseline': [
+			true,
+			{
+				ignoreProperties: ['outline'],
+			},
+		],
 		'@stylistic/color-hex-case': 'lower',
 		'@stylistic/function-comma-space-after': 'always',
 		'@stylistic/function-comma-space-before': 'never',
