@@ -36,7 +36,9 @@ module.exports = {
 		'plugin/use-baseline': [
 			true,
 			{
-				ignoreProperties: ['outline'],
+				ignoreProperties: {
+					outline: [],
+				},
 			},
 		],
 		'@stylistic/color-hex-case': 'lower',

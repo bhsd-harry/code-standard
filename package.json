@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/code-standard",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"homepage": "https://github.com/bhsd-harry/code-standard#readme",
 	"bugs": {
 		"url": "https://github.com/bhsd-harry/code-standard/issues"
@@ -26,6 +26,6 @@
 		"eslint-plugin-promise": "^7.2.1",
 		"eslint-plugin-regexp": "^2.9.0",
 		"eslint-plugin-unicorn": "^56.0.1",
-		"stylelint-plugin-use-baseline": "^0.9.1"
+		"stylelint-plugin-use-baseline": "^1.0.0"
 	}
 }
