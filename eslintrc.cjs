@@ -689,6 +689,7 @@ module.exports = {
 			parser: 'eslint-plugin-json-es',
 			extends: ['plugin:eslint-plugin-json-es/recommended'],
 			rules: {
+				strict: 0,
 				'@stylistic/array-bracket-newline': [
 					2,
 					{
@@ -721,7 +722,6 @@ module.exports = {
 				],
 				'@stylistic/quote-props': 0,
 				'@stylistic/quotes': 0,
-				strict: 0,
 				'unicorn/prefer-string-raw': 0,
 				'unicorn/numeric-separators-style': 0,
 			},
