@@ -441,6 +441,7 @@ export const ignores = {
 					2,
 					{
 						code: 120,
+						ignoreRegExpLiterals: true,
 					},
 				],
 				'@stylistic/multiline-comment-style': [
@@ -617,6 +618,7 @@ export const ignores = {
 				'unicorn/prefer-array-some': 2,
 				'unicorn/prefer-bigint-literals': 2,
 				'unicorn/prefer-class-fields': 2,
+				'unicorn/prefer-classlist-toggle': 2,
 				'unicorn/prefer-code-point': 2,
 				'unicorn/prefer-default-parameters': 2,
 				'unicorn/prefer-global-this': 2,
@@ -899,7 +901,17 @@ export const ignores = {
 						allowAsThisParameter: true,
 					},
 				],
-				'@typescript-eslint/no-misused-spread': 2,
+				'@typescript-eslint/no-misused-spread': [
+					2,
+					{
+						allow: [
+							{
+								from: 'lib',
+								name: 'string',
+							},
+						],
+					},
+				],
 				'@typescript-eslint/no-namespace': [
 					2,
 					{
@@ -907,6 +919,12 @@ export const ignores = {
 					},
 				],
 				'@typescript-eslint/no-non-null-asserted-nullish-coalescing': 2,
+				'@typescript-eslint/no-require-imports': [
+					2,
+					{
+						allow: [String.raw`.+\.json$`],
+					},
+				],
 				'@typescript-eslint/no-this-alias': [
 					2,
 					{
@@ -1003,7 +1021,7 @@ export const ignores = {
 				'n/no-unsupported-features/node-builtins': [
 					2,
 					{
-						ignores: ['fetch'],
+						allowExperimental: true,
 					},
 				],
 			},
