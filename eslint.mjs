@@ -5,7 +5,7 @@ import regexp from 'eslint-plugin-regexp';
 import unicorn from 'eslint-plugin-unicorn';
 import jsdoc from 'eslint-plugin-jsdoc';
 import eslintComments from 'eslint-plugin-eslint-comments';
-import jsonEs from 'eslint-plugin-json-es';
+import jsonc from 'eslint-plugin-jsonc';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import n from 'eslint-plugin-n';
 import esX from 'eslint-plugin-es-x';
@@ -61,6 +61,7 @@ export const ignores = {
 				'no-promise-executor-return': 2,
 				'no-self-compare': 2,
 				'no-template-curly-in-string': 2,
+				'no-unassigned-vars': 2,
 				'no-undef': [
 					2,
 					{
@@ -98,6 +99,7 @@ export const ignores = {
 						variables: false,
 					},
 				],
+				'no-useless-assignment': 2,
 				'require-atomic-updates': [
 					2,
 					{
@@ -561,6 +563,8 @@ export const ignores = {
 						name: 'e',
 					},
 				],
+				'unicorn/consistent-assert': 2,
+				'unicorn/consistent-date-clone': 2,
 				'unicorn/consistent-existence-index-check': 2,
 				'unicorn/consistent-function-scoping': [
 					2,
@@ -573,14 +577,16 @@ export const ignores = {
 				'unicorn/explicit-length-check': 2,
 				'unicorn/new-for-builtins': 2,
 				'unicorn/no-abusive-eslint-disable': 2,
+				'unicorn/no-accessor-recursion': 2,
 				'unicorn/no-array-for-each': 2,
 				'unicorn/no-array-method-this-argument': 2,
-				'unicorn/no-array-push-push': 2,
 				'unicorn/no-array-reduce': 2,
 				'unicorn/no-await-in-promise-methods': 2,
-				'unicorn/no-instanceof-array': 2,
+				'unicorn/no-immediate-mutation': 2,
+				'unicorn/no-instanceof-builtins': 2,
 				'unicorn/no-invalid-remove-event-listener': 2,
 				'unicorn/no-lonely-if': 2,
+				'unicorn/no-named-default': 2,
 				'unicorn/no-negated-condition': 2,
 				'unicorn/no-negation-in-equality-check': 2,
 				'unicorn/no-object-as-default-parameter': 2,
@@ -593,8 +599,11 @@ export const ignores = {
 						checkGlobalVariables: true,
 					},
 				],
+				'unicorn/no-unnecessary-array-flat-depth': 2,
+				'unicorn/no-unnecessary-array-splice-count': 2,
 				'unicorn/no-unreadable-iife': 2,
 				'unicorn/no-unused-properties': 2,
+				'unicorn/no-useless-collection-argument': 2,
 				'unicorn/no-useless-fallback-in-spread': 2,
 				'unicorn/no-useless-length-check': 2,
 				'unicorn/no-useless-spread': 2,
@@ -606,6 +615,8 @@ export const ignores = {
 				'unicorn/prefer-array-flat-map': 2,
 				'unicorn/prefer-array-index-of': 2,
 				'unicorn/prefer-array-some': 2,
+				'unicorn/prefer-bigint-literals': 2,
+				'unicorn/prefer-class-fields': 2,
 				'unicorn/prefer-code-point': 2,
 				'unicorn/prefer-default-parameters': 2,
 				'unicorn/prefer-global-this': 2,
@@ -617,11 +628,13 @@ export const ignores = {
 				'unicorn/prefer-negative-index': 2,
 				'unicorn/prefer-optional-catch-binding': 2,
 				'unicorn/prefer-prototype-methods': 2,
+				'unicorn/prefer-single-call': 2,
 				'unicorn/prefer-spread': 2,
 				'unicorn/prefer-string-raw': 2,
 				'unicorn/prefer-string-starts-ends-with': 2,
 				'unicorn/prefer-switch': 2,
 				'unicorn/prefer-ternary': 2,
+				'unicorn/require-module-attributes': 2,
 				'unicorn/switch-case-braces': [
 					2,
 					'avoid',
@@ -721,54 +734,47 @@ export const ignores = {
 			},
 		},
 	},
-	json = {
-		files: ['**/*.json'],
-		languageOptions: {
-			parser: {
-				meta: {name: 'json-es'},
-				...jsonEs,
+	json = [
+		...jsonc.configs['flat/recommended-with-json'],
+		{
+			files: ['**/*.json'],
+			rules: {
+				'jsonc/array-bracket-newline': [
+					2,
+					{
+						minItems: 1,
+					},
+				],
+				'jsonc/array-bracket-spacing': 2,
+				'jsonc/array-element-newline': [
+					2,
+					'always',
+				],
+				'jsonc/comma-style': 2,
+				'jsonc/indent': [
+					2,
+					'tab',
+				],
+				'jsonc/key-spacing': 2,
+				'jsonc/no-irregular-whitespace': 2,
+				'jsonc/no-octal-escape': 2,
+				'jsonc/object-curly-newline': [
+					2,
+					{
+						minProperties: 1,
+					},
+				],
+				'jsonc/object-curly-spacing': 2,
+				'jsonc/object-property-newline': [
+					2,
+					{
+						allowAllPropertiesOnSameLine: false,
+					},
+				],
+				'@stylistic/max-len': 0,
 			},
 		},
-		plugins: {'json-es': jsonEs},
-		rules: {
-			...jsonEs.configs.recommended.rules,
-			strict: 0,
-			'@stylistic/array-bracket-newline': [
-				2,
-				{
-					minItems: 1,
-				},
-			],
-			'@stylistic/array-element-newline': [
-				2,
-				'always',
-			],
-			'@stylistic/comma-dangle': 0,
-			'@stylistic/max-len': 0,
-			'@stylistic/no-multiple-empty-lines': [
-				2,
-				{
-					max: 0,
-				},
-			],
-			'@stylistic/object-curly-newline': [
-				2,
-				{
-					minProperties: 1,
-				},
-			],
-			'@stylistic/object-property-newline': [
-				2,
-				{
-					allowAllPropertiesOnSameLine: false,
-				},
-			],
-			'@stylistic/quote-props': 0,
-			'@stylistic/quotes': 0,
-			'unicorn/prefer-string-raw': 0,
-			'unicorn/numeric-separators-style': 0,
-		},
-	},
+	],
 	ts = [
 		...tsRecommended,
 		{
@@ -1020,7 +1026,13 @@ export const ignores = {
 		'es-x/no-array-prototype-tosorted': 2,
 		'es-x/no-array-prototype-tospliced': 2,
 		'es-x/no-array-prototype-with': 2,
+		'es-x/no-dataview-prototype-getfloat16-setfloat16': 2,
 		'es-x/no-error-cause': 2,
+		'es-x/no-float16array': 2,
+		'es-x/no-iterator': 2,
+		'es-x/no-iterator-prototype-drop': 2,
+		'es-x/no-iterator-prototype-take': 2,
+		'es-x/no-iterator-prototype-toarray': 2,
 		'es-x/no-map-groupby': 2,
 		'es-x/no-math-f16round': 2,
 		'es-x/no-object-groupby': 2,
@@ -1029,8 +1041,10 @@ export const ignores = {
 		'es-x/no-promise-try': 2,
 		'es-x/no-promise-withresolvers': 2,
 		'es-x/no-regexp-d-flag': 2,
+		'es-x/no-regexp-duplicate-named-capturing-groups': 2,
 		'es-x/no-regexp-escape': 2,
 		'es-x/no-regexp-lookbehind-assertions': 2,
+		'es-x/no-regexp-modifiers': 2,
 		'es-x/no-regexp-v-flag': 2,
 		'es-x/no-set-prototype-difference': 2,
 		'es-x/no-set-prototype-intersection': 2,
@@ -1046,13 +1060,21 @@ export const ignores = {
 	}),
 	dist = getConfig({
 		...esX.configs['flat/restrict-to-es2020'].rules,
+		'es-x/no-iterator-prototype-every': 0,
+		'es-x/no-iterator-prototype-filter': 0,
+		'es-x/no-iterator-prototype-find': 0,
+		'es-x/no-iterator-prototype-flatmap': 0,
+		'es-x/no-iterator-prototype-foreach': 0,
+		'es-x/no-iterator-prototype-map': 0,
+		'es-x/no-iterator-prototype-reduce': 0,
+		'es-x/no-iterator-prototype-some': 0,
 		'es-x/no-regexp-lookbehind-assertions': 2,
 		'es-x/no-regexp-unicode-property-escapes-2020': 2,
 	});
 
 /**
  * 添加ESLint配置项
- * @param  {...import('eslint').Linter.FlatConfig} args ESLint配置项
+ * @param  {...import('eslint').Linter.Config} args ESLint配置项
  * @throws `TypeError` 不支持传入配置数组
  * @throws `RangeError` 未知的配置项类型
  */
@@ -1071,7 +1093,7 @@ export const extend = (...args) => {
 		...moreIgnores,
 		...general,
 		...moreGeneral,
-		json,
+		...json,
 		...ts,
 		...moreFiles,
 	];
