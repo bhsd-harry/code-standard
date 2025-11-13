@@ -38,6 +38,7 @@ module.exports = {
 			{
 				ignoreProperties: {
 					outline: [],
+					'user-select': ['none'],
 				},
 			},
 		],
