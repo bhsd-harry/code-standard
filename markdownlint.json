@@ -1,0 +1,19 @@
+{
+	"descriptive-link-text": false,
+	"first-line-h1": {
+		"allow_preamble": true
+	},
+	"line-length": false,
+	"no-emphasis-as-heading": false,
+	"no-hard-tabs": false,
+	"no-inline-html": {
+		"allowed_elements": [
+			"br",
+			"details",
+			"summary"
+		]
+	},
+	"ul-indent": {
+		"indent": 1
+	}
+}
