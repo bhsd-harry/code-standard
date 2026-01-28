@@ -427,7 +427,7 @@ export const ignores = {
 					2,
 					{
 						allowBlockStart: true,
-						ignorePattern: String.raw`^\* @`,
+						ignorePattern: String.raw`^(\* @| c8 ignore )`,
 					},
 				],
 				'@stylistic/lines-between-class-members': [
@@ -822,6 +822,8 @@ export const ignores = {
 						builtinGlobals: true,
 					},
 				],
+				'no-unused-private-class-members': 0,
+				'@typescript-eslint/no-unused-private-class-members': 2,
 				'no-use-before-define': 0,
 				'@typescript-eslint/no-use-before-define': [
 					2,
@@ -937,6 +939,7 @@ export const ignores = {
 				'@typescript-eslint/no-unsafe-assignment': 0,
 				'@typescript-eslint/no-unsafe-call': 0,
 				'@typescript-eslint/no-unsafe-return': 0,
+				'@typescript-eslint/no-useless-default-assignment': 2,
 				'@typescript-eslint/no-useless-empty-export': 2,
 				'@typescript-eslint/no-unused-vars': [
 					2,
@@ -953,6 +956,7 @@ export const ignores = {
 				'@typescript-eslint/prefer-reduce-type-parameter': 2,
 				'@typescript-eslint/prefer-return-this-type': 2,
 				'@typescript-eslint/related-getter-setter-pairs': 2,
+				'@typescript-eslint/strict-void-return': 2,
 				'@typescript-eslint/switch-exhaustiveness-check': [
 					2,
 					{
@@ -975,9 +979,7 @@ export const ignores = {
 						before: false,
 						after: true,
 						overrides: {
-							arrow: {
-								before: true,
-							},
+							arrow: 'ignore',
 						},
 					},
 				],
