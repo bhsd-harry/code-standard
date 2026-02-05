@@ -4,6 +4,7 @@
 		"allow_preamble": true
 	},
 	"line-length": false,
+	"no-bare-urls": false,
 	"no-emphasis-as-heading": false,
 	"no-hard-tabs": false,
 	"no-inline-html": {
