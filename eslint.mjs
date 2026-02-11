@@ -355,12 +355,7 @@ export const ignores = {
 						minAlternatives: 2,
 					},
 				],
-				'regexp/prefer-lookaround': [
-					2,
-					{
-						lookbehind: false,
-					},
-				],
+				'regexp/prefer-lookaround': 2,
 				'regexp/unicode-property': 2,
 			},
 		},
@@ -732,7 +727,7 @@ export const ignores = {
 		},
 	},
 	json = [
-		...jsonc.configs['flat/recommended-with-json'],
+		...jsonc.configs['recommended-with-json'],
 		{
 			files: ['**/*.json'],
 			rules: {
@@ -753,7 +748,6 @@ export const ignores = {
 					'tab',
 				],
 				'jsonc/key-spacing': 2,
-				'jsonc/no-irregular-whitespace': 2,
 				'jsonc/no-octal-escape': 2,
 				'jsonc/object-curly-newline': [
 					2,
@@ -1034,15 +1028,11 @@ export const ignores = {
 		},
 	],
 	browser = getConfig({
-		'prefer-object-has-own': 0,
-		'es-x/no-array-prototype-at': 2,
-		'es-x/no-array-prototype-findlast-findlastindex': 2,
 		'es-x/no-array-prototype-toreversed': 2,
 		'es-x/no-array-prototype-tosorted': 2,
 		'es-x/no-array-prototype-tospliced': 2,
 		'es-x/no-array-prototype-with': 2,
 		'es-x/no-dataview-prototype-getfloat16-setfloat16': 2,
-		'es-x/no-error-cause': 2,
 		'es-x/no-float16array': 2,
 		'es-x/no-iterator': 2,
 		'es-x/no-iterator-prototype-drop': 2,
@@ -1051,14 +1041,10 @@ export const ignores = {
 		'es-x/no-map-groupby': 2,
 		'es-x/no-math-f16round': 2,
 		'es-x/no-object-groupby': 2,
-		'es-x/no-object-hasown': 2,
-		'es-x/no-promise-any': 2,
 		'es-x/no-promise-try': 2,
 		'es-x/no-promise-withresolvers': 2,
-		'es-x/no-regexp-d-flag': 2,
 		'es-x/no-regexp-duplicate-named-capturing-groups': 2,
 		'es-x/no-regexp-escape': 2,
-		'es-x/no-regexp-lookbehind-assertions': 2,
 		'es-x/no-regexp-modifiers': 2,
 		'es-x/no-regexp-v-flag': 2,
 		'es-x/no-set-prototype-difference': 2,
@@ -1068,13 +1054,12 @@ export const ignores = {
 		'es-x/no-set-prototype-issupersetof': 2,
 		'es-x/no-set-prototype-symmetricdifference': 2,
 		'es-x/no-set-prototype-union': 2,
-		'es-x/no-string-prototype-at': 2,
 		'es-x/no-string-prototype-iswellformed': 2,
-		'es-x/no-string-prototype-replaceall': 2,
 		'es-x/no-string-prototype-towellformed': 2,
 	}),
 	dist = getConfig({
-		...esX.configs['flat/restrict-to-es2020'].rules,
+		...esX.configs['flat/restrict-to-es2022'].rules,
+		'es-x/no-array-prototype-findlast-findlastindex': 0,
 		'es-x/no-iterator-prototype-every': 0,
 		'es-x/no-iterator-prototype-filter': 0,
 		'es-x/no-iterator-prototype-find': 0,
@@ -1083,8 +1068,6 @@ export const ignores = {
 		'es-x/no-iterator-prototype-map': 0,
 		'es-x/no-iterator-prototype-reduce': 0,
 		'es-x/no-iterator-prototype-some': 0,
-		'es-x/no-regexp-lookbehind-assertions': 2,
-		'es-x/no-regexp-unicode-property-escapes-2020': 2,
 	});
 
 /**
