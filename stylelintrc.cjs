@@ -79,6 +79,7 @@ module.exports = {
 		'@stylistic/no-eol-whitespace': true,
 		'@stylistic/no-extra-semicolons': true,
 		'@stylistic/no-missing-end-of-source-newline': true,
+		'@stylistic/no-multiple-whitespaces': true,
 	},
 	reportInvalidScopeDisables: true,
 	reportNeedlessDisables: true,

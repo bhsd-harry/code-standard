@@ -4,7 +4,7 @@ import promise from 'eslint-plugin-promise';
 import regexp from 'eslint-plugin-regexp';
 import unicorn from 'eslint-plugin-unicorn';
 import jsdoc from 'eslint-plugin-jsdoc';
-import eslintComments from 'eslint-plugin-eslint-comments';
+import eslintComments from '@eslint-community/eslint-plugin-eslint-comments';
 import jsonc from 'eslint-plugin-jsonc';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import n from 'eslint-plugin-n';
@@ -145,7 +145,6 @@ export const ignores = {
 					2,
 					'getBeforeSet',
 				],
-				'guard-for-in': 2,
 				'logical-assignment-operators': [
 					2,
 					'always',
@@ -290,10 +289,6 @@ export const ignores = {
 				'prefer-rest-params': 2,
 				'prefer-spread': 2,
 				'prefer-template': 2,
-				radix: [
-					2,
-					'as-needed',
-				],
 				'require-await': 2,
 				'require-unicode-regexp': 2,
 				strict: 2,
@@ -568,6 +563,7 @@ export const ignores = {
 						checkArrowFunctions: false,
 					},
 				],
+				'unicorn/consistent-template-literal-escape': 2,
 				'unicorn/empty-brace-spaces': 2,
 				'unicorn/error-message': 2,
 				'unicorn/explicit-length-check': 2,
@@ -620,6 +616,7 @@ export const ignores = {
 				'unicorn/prefer-negative-index': 2,
 				'unicorn/prefer-optional-catch-binding': 2,
 				'unicorn/prefer-prototype-methods': 2,
+				'unicorn/prefer-simple-condition-first': 2,
 				'unicorn/prefer-single-call': 2,
 				'unicorn/prefer-spread': 2,
 				'unicorn/prefer-string-raw': 2,
@@ -631,15 +628,16 @@ export const ignores = {
 					2,
 					'avoid',
 				],
+				'unicorn/switch-case-break-position': 2,
 				'unicorn/text-encoding-identifier-case': 2,
 				'unicorn/throw-new-error': 2,
 			},
 		},
 		{
-			plugins: {'eslint-comments': eslintComments},
+			plugins: {'@eslint-community/eslint-comments': eslintComments},
 			rules: {
 				...eslintComments.configs.recommended.rules,
-				'eslint-comments/disable-enable-pair': [
+				'@eslint-community/eslint-comments/disable-enable-pair': [
 					2,
 					{
 						allowWholeFile: true,
