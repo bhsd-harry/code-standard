@@ -668,6 +668,7 @@ export const ignores = {
 			'jsdoc/no-bad-blocks': [
 				1,
 				{
+					ignore: ['__PURE__'],
 					preventAllMultiAsteriskBlocks: true,
 				},
 			],

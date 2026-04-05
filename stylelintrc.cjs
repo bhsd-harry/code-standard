@@ -7,6 +7,7 @@ module.exports = {
 		'@stylistic/stylelint-plugin',
 	],
 	rules: {
+		'selector-no-deprecated': true,
 		'declaration-property-value-no-unknown': true,
 		'no-unknown-animations': true,
 		'no-unknown-custom-media': true,
@@ -26,6 +27,7 @@ module.exports = {
 		'font-weight-notation': 'named-where-possible',
 		'hue-degree-notation': 'number',
 		'keyframe-selector-notation': 'percentage-unless-within-keyword-only-block',
+		'relative-selector-nesting-notation': 'explicit',
 		'selector-not-notation': 'complex',
 		'selector-pseudo-element-colon-notation': 'double',
 		'font-family-name-quotes': 'always-where-recommended',
