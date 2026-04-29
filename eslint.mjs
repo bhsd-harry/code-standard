@@ -9,6 +9,7 @@ import jsonc from 'eslint-plugin-jsonc';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import n from 'eslint-plugin-n';
 import esX from 'eslint-plugin-es-x';
+import yml from 'eslint-plugin-yml';
 import globals from 'globals';
 
 const tsRecommended = typescriptEslint.configs['flat/recommended-type-checked'],
@@ -765,12 +766,28 @@ export const ignores = {
 			},
 		},
 	],
+	yaml = [
+		...yml.configs.standard,
+		{
+			files: ['**/*.yaml', '**/*.yml'],
+			rules: {
+				'yml/quotes': [
+					2,
+					{
+						prefer: 'single',
+					},
+				],
+				'@stylistic/lines-around-comment': 0,
+				'@stylistic/max-len': 0,
+			},
+		},
+	],
 	ts = [
 		...tsRecommended,
 		{
 			languageOptions: {
 				parserOptions: {
-					project: './tsconfig.json',
+					projectService: true,
 				},
 			},
 			rules: {
@@ -1091,6 +1108,7 @@ export const extend = (...args) => {
 		...general,
 		...moreGeneral,
 		...json,
+		...yaml,
 		...ts,
 		...moreFiles,
 	];
