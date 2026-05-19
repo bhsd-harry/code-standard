@@ -14,9 +14,10 @@ import globals from 'globals';
 
 const tsRecommended = typescriptEslint.configs['flat/recommended-type-checked'],
 	files = ['**/*.ts'];
-const getConfig = rules => ({
+const getConfig = (rules, ecmaVersion) => ({
 	languageOptions: {
 		globals: globals.browser,
+		...ecmaVersion && {ecmaVersion},
 	},
 	plugins: {'es-x': esX},
 	settings: {
@@ -24,7 +25,16 @@ const getConfig = rules => ({
 			aggressive: true,
 		},
 	},
-	rules,
+	rules: {
+		...rules,
+		'es-x/no-iterator-prototype-every': 0,
+		'es-x/no-iterator-prototype-filter': 0,
+		'es-x/no-iterator-prototype-find': 0,
+		'es-x/no-iterator-prototype-foreach': 0,
+		'es-x/no-iterator-prototype-map': 0,
+		'es-x/no-iterator-prototype-reduce': 0,
+		'es-x/no-iterator-prototype-some': 0,
+	},
 });
 export const ignores = {
 		ignores: [
@@ -1095,19 +1105,37 @@ export const ignores = {
 		'es-x/no-set-prototype-union': 2,
 		'es-x/no-string-prototype-iswellformed': 2,
 		'es-x/no-string-prototype-towellformed': 2,
+		'unicorn/prefer-structured-clone': 0,
+	}),
+	browserES8 = getConfig({
+		...esX.configs['flat/restrict-to-es2017'].rules,
+		'es-x/no-class-instance-fields': 0,
+		'es-x/no-class-private-fields': 0,
+		'es-x/no-class-private-methods': 0,
+		'es-x/no-class-static-blocks': 0,
+		'es-x/no-class-static-fields': 0,
+		'es-x/no-private-in': 0,
+		'es-x/no-logical-assignment-operators': 0,
+		'es-x/no-numeric-separators': 0,
+		'es-x/no-nullish-coalescing-operator': 0,
+		'es-x/no-optional-chaining': 0,
+		'es-x/no-optional-catch-binding': 0,
+		'es-x/no-rest-spread-properties': 0,
+		'unicorn/prefer-array-flat': 0,
+		'unicorn/prefer-array-flat-map': 0,
+		'unicorn/prefer-at': 0,
+		'unicorn/prefer-bigint-literals': 0,
+		'unicorn/prefer-global-this': 0,
+		'unicorn/prefer-object-from-entries': 0,
+		'unicorn/prefer-string-replace-all': 0,
+		'unicorn/prefer-structured-clone': 0,
 	}),
 	dist = getConfig({
 		...esX.configs['flat/restrict-to-es2022'].rules,
 		'es-x/no-array-prototype-findlast-findlastindex': 0,
-		'es-x/no-iterator-prototype-every': 0,
-		'es-x/no-iterator-prototype-filter': 0,
-		'es-x/no-iterator-prototype-find': 0,
 		'es-x/no-iterator-prototype-flatmap': 0,
-		'es-x/no-iterator-prototype-foreach': 0,
-		'es-x/no-iterator-prototype-map': 0,
-		'es-x/no-iterator-prototype-reduce': 0,
-		'es-x/no-iterator-prototype-some': 0,
-	});
+	}),
+	distES8 = getConfig(esX.configs['flat/restrict-to-es2017'].rules, 8);
 
 /**
  * 添加ESLint配置项
