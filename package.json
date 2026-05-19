@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/code-standard",
-	"version": "2.5.0",
+	"version": "2.5.1",
 	"homepage": "https://github.com/bhsd-harry/code-standard#readme",
 	"bugs": {
 		"url": "https://github.com/bhsd-harry/code-standard/issues"
@@ -22,7 +22,7 @@
 		"@eslint/js": "^10.0.1",
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
-		"@typescript-eslint/eslint-plugin": "^8.59.2",
+		"@typescript-eslint/eslint-plugin": "^8.59.4",
 		"eslint-plugin-es-x": "^9.6.0",
 		"eslint-plugin-jsdoc": "^62.9.0",
 		"eslint-plugin-jsonc": "^3.1.2",
@@ -34,8 +34,8 @@
 		"globals": "^17.6.0"
 	},
 	"devDependencies": {
-		"@types/node": "^25.8.0",
-		"@typescript-eslint/parser": "^8.59.2",
+		"@types/node": "^25.9.0",
+		"@typescript-eslint/parser": "^8.59.4",
 		"eslint": "^10.4.0",
 		"stylelint-plugin-use-baseline": "^1.4.2"
 	}

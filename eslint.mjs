@@ -1109,6 +1109,7 @@ export const ignores = {
 	}),
 	browserES8 = getConfig({
 		...esX.configs['flat/restrict-to-es2017'].rules,
+		'es-x/no-array-prototype-flat': 0,
 		'es-x/no-class-instance-fields': 0,
 		'es-x/no-class-private-fields': 0,
 		'es-x/no-class-private-methods': 0,
@@ -1121,8 +1122,6 @@ export const ignores = {
 		'es-x/no-optional-chaining': 0,
 		'es-x/no-optional-catch-binding': 0,
 		'es-x/no-rest-spread-properties': 0,
-		'unicorn/prefer-array-flat': 0,
-		'unicorn/prefer-array-flat-map': 0,
 		'unicorn/prefer-at': 0,
 		'unicorn/prefer-bigint-literals': 0,
 		'unicorn/prefer-global-this': 0,
@@ -1135,7 +1134,10 @@ export const ignores = {
 		'es-x/no-array-prototype-findlast-findlastindex': 0,
 		'es-x/no-iterator-prototype-flatmap': 0,
 	}),
-	distES8 = getConfig(esX.configs['flat/restrict-to-es2017'].rules, 8);
+	distES8 = getConfig({
+		...esX.configs['flat/restrict-to-es2017'].rules,
+		'es-x/no-array-prototype-flat': 0,
+	}, 8);
 
 /**
  * 添加ESLint配置项
