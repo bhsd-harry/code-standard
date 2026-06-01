@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/code-standard",
-	"version": "2.6.1",
+	"version": "2.6.2",
 	"homepage": "https://github.com/bhsd-harry/code-standard#readme",
 	"bugs": {
 		"url": "https://github.com/bhsd-harry/code-standard/issues"
@@ -20,8 +20,8 @@
 	},
 	"peerDependencies": {
 		"eslint": "^10.0.0",
-		"markdownlint-cli2": "*",
-		"stylelint": "^17.0.0"
+		"markdownlint-cli2": ">=0.7.0",
+		"stylelint": ">=17.10.0"
 	},
 	"peerDependenciesMeta": {
 		"eslint": {
