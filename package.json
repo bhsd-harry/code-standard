@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/code-standard",
-	"version": "2.7.0",
+	"version": "3.0.0",
 	"homepage": "https://github.com/bhsd-harry/code-standard#readme",
 	"bugs": {
 		"url": "https://github.com/bhsd-harry/code-standard/issues"
@@ -8,11 +8,17 @@
 	"license": "MIT",
 	"author": "Bhsd",
 	"files": [
-		"*.[cm]js",
-		"!eslint.config.mjs",
+		"*.js",
+		"!eslint.config.js",
 		"markdownlint.json"
 	],
-	"main": "eslint.mjs",
+	"main": "eslint.js",
+	"exports": {
+		".": "./eslint.js",
+		"./stylelint": "./stylelintrc.js",
+		"./markdownlint": "./markdownlint.json"
+	},
+	"type": "module",
 	"scripts": {
 		"ls": "npm i --package-lock-only && npm ls --package-lock-only --all --omit=dev",
 		"lint:ts": "eslint --cache .",
@@ -39,9 +45,9 @@
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"@stylistic/stylelint-plugin": "^5.2.0",
-		"@types/node": "^25.9.0",
-		"@typescript-eslint/eslint-plugin": "^8.60.1",
-		"@typescript-eslint/parser": "^8.60.1",
+		"@types/node": "^25.9.3",
+		"@typescript-eslint/eslint-plugin": "^8.61.0",
+		"@typescript-eslint/parser": "^8.61.0",
 		"eslint-plugin-es-x": "^9.6.0",
 		"eslint-plugin-jsdoc": "^62.9.0",
 		"eslint-plugin-jsonc": "^3.1.2",

@@ -1167,10 +1167,11 @@ export const extend = (...args) => {
 	if (args.some(arg => Array.isArray(arg))) {
 		throw new TypeError('只支持传入单个配置对象，禁止传入配置数组！');
 	}
-	const moreIgnores = args.filter(({files: f, ignores: i}) => !f && i),
+	const isModule = Number(args.includes('module')),
+		moreIgnores = args.filter(({files: f, ignores: i}) => !f && i),
 		moreGeneral = args.filter(({files: f, rules, plugins}) => !f && (rules || plugins)),
 		moreFiles = args.filter(({files: f}) => f);
-	if (moreIgnores.length + moreGeneral.length + moreFiles.length !== args.length) {
+	if (isModule + moreIgnores.length + moreGeneral.length + moreFiles.length !== args.length) {
 		throw new RangeError('传入的配置项只能是忽略项、通用规则项或文件规则项三种之一！');
 	}
 	return [
@@ -1181,6 +1182,16 @@ export const extend = (...args) => {
 		...json,
 		...yaml,
 		...ts,
+		...isModule
+			? [
+				{
+					files: ['**/*.js'],
+					languageOptions: {
+						sourceType: 'module',
+					},
+				},
+			]
+			: [],
 		...moreFiles,
 	];
 };
