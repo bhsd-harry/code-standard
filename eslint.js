@@ -1093,7 +1093,6 @@ export const ignores = {
 		},
 	],
 	browser = getConfig({
-		'es-x/no-array-prototype-findlast-findlastindex': 2,
 		'es-x/no-array-prototype-toreversed': 2,
 		'es-x/no-array-prototype-tosorted': 2,
 		'es-x/no-array-prototype-tospliced': 2,
@@ -1122,7 +1121,6 @@ export const ignores = {
 		'es-x/no-set-prototype-union': 2,
 		'es-x/no-string-prototype-iswellformed': 2,
 		'es-x/no-string-prototype-towellformed': 2,
-		'unicorn/prefer-array-last-methods': 0,
 		'unicorn/prefer-structured-clone': 0,
 	}),
 	browserES8 = getConfig({
@@ -1150,6 +1148,7 @@ export const ignores = {
 	}),
 	dist = getConfig({
 		...esX.configs['flat/restrict-to-es2022'].rules,
+		'es-x/no-array-prototype-findlast-findlastindex': 0,
 		'es-x/no-iterator-prototype-flatmap': 0,
 	}),
 	distES8 = getConfig({
