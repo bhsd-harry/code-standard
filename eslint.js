@@ -14,6 +14,17 @@ import globals from 'globals';
 
 const tsRecommended = typescriptEslint.configs['flat/recommended-type-checked'],
 	files = ['**/*.ts'];
+const off = (rules, ruleNames) => {
+	const newRules = {...rules};
+	for (const ruleName of ruleNames) {
+		const name = `es-x/${ruleName}`;
+		if (!(name in newRules)) {
+			throw new RangeError(`Rule ${name} does not exist!`);
+		}
+		delete newRules[name];
+	}
+	return newRules;
+};
 const getConfig = (rules, ecmaVersion) => ({
 	languageOptions: {
 		globals: globals.browser,
@@ -80,7 +91,6 @@ export const ignores = {
 			'unicorn/no-array-from-fill': 2,
 			'unicorn/no-array-method-this-argument': 2,
 			'unicorn/no-array-reduce': 2,
-			'unicorn/no-array-splice': 2,
 			'unicorn/no-await-in-promise-methods': 2,
 			'unicorn/no-chained-comparison': 2,
 			'unicorn/no-confusing-array-splice': 2,
@@ -107,7 +117,12 @@ export const ignores = {
 			'unicorn/no-mismatched-map-key': 2,
 			'unicorn/no-misrefactored-assignment': 2,
 			'unicorn/no-named-default': 2,
-			'unicorn/no-negated-comparison': 2,
+			'unicorn/no-negated-comparison': [
+				2,
+				{
+					checkLogicalExpressions: true,
+				},
+			],
 			'unicorn/no-negated-condition': 2,
 			'unicorn/no-negation-in-equality-check': 2,
 			'unicorn/no-new-array': 2,
@@ -131,7 +146,6 @@ export const ignores = {
 			'unicorn/no-unnecessary-fetch-options': 2,
 			'unicorn/no-unnecessary-global-this': 2,
 			'unicorn/no-unnecessary-splice': 2,
-			'unicorn/no-unreadable-iife': 2,
 			'unicorn/no-unsafe-buffer-conversion': 2,
 			'unicorn/no-unsafe-promise-all-settled-values': 2,
 			'unicorn/no-unsafe-string-replacement': 2,
@@ -173,6 +187,12 @@ export const ignores = {
 			'unicorn/prefer-class-fields': 2,
 			'unicorn/prefer-classlist-toggle': 2,
 			'unicorn/prefer-code-point': 2,
+			'unicorn/prefer-continue': [
+				2,
+				{
+					maximumStatements: 2,
+				},
+			],
 			'unicorn/prefer-default-parameters': 2,
 			'unicorn/prefer-direct-iteration': 2,
 			'unicorn/prefer-dispose': 2,
@@ -198,7 +218,13 @@ export const ignores = {
 			'unicorn/prefer-math-abs': 2,
 			'unicorn/prefer-math-constants': 2,
 			'unicorn/prefer-math-min-max': 2,
-			'unicorn/prefer-minimal-ternary': 2,
+			'unicorn/prefer-minimal-ternary': [
+				2,
+				{
+					checkVaryingBase: true,
+					checkComputedMemberAccess: true,
+				},
+			],
 			'unicorn/prefer-native-coercion-functions': 2,
 			'unicorn/prefer-negative-index': 2,
 			'unicorn/prefer-number-is-safe-integer': 2,
@@ -226,7 +252,6 @@ export const ignores = {
 			'unicorn/prefer-string-repeat': 2,
 			'unicorn/prefer-string-replace-all': 2,
 			'unicorn/prefer-string-starts-ends-with': 2,
-			'unicorn/prefer-structured-clone': 2,
 			'unicorn/prefer-switch': 2,
 			'unicorn/prefer-ternary': 2,
 			'unicorn/prefer-toggle-attribute': 2,
@@ -248,6 +273,12 @@ export const ignores = {
 			'unicorn/text-encoding-identifier-case': 2,
 			'unicorn/throw-new-error': 2,
 		},
+	},
+	unicornForNode = {
+		'unicorn/no-array-reverse': 2,
+		'unicorn/no-array-sort': 2,
+		'unicorn/no-array-splice': 2,
+		'unicorn/prefer-structured-clone': 2,
 	},
 	general = [
 		js.configs.recommended,
@@ -854,11 +885,7 @@ export const ignores = {
 			},
 		},
 	},
-	noUnicorn = {
-		'unicorn/no-array-reverse': 0,
-		'unicorn/no-array-sort': 0,
-		...Object.fromEntries(Object.keys(unicornConfigs.rules).map(rule => [rule, 0])),
-	},
+	noUnicorn = Object.fromEntries(Object.keys({...unicornConfigs.rules, ...unicornForNode}).map(rule => [rule, 0])),
 	json = [
 		...jsonc.configs['recommended-with-json'],
 		{
@@ -1148,6 +1175,7 @@ export const ignores = {
 		},
 		{
 			rules: {
+				...unicornForNode,
 				'n/exports-style': [
 					2,
 					'module.exports',
@@ -1167,8 +1195,6 @@ export const ignores = {
 						allowExperimental: true,
 					},
 				],
-				'unicorn/no-array-reverse': 2,
-				'unicorn/no-array-sort': 2,
 			},
 			settings: {
 				n: {
@@ -1210,40 +1236,41 @@ export const ignores = {
 		'es-x/no-set-prototype-union': 2,
 		'es-x/no-string-prototype-iswellformed': 2,
 		'es-x/no-string-prototype-towellformed': 2,
-		'unicorn/prefer-structured-clone': 0,
 	}),
 	browserES8 = getConfig({
-		...esX.configs['flat/restrict-to-es2017'].rules,
-		'es-x/no-array-prototype-flat': 0,
-		'es-x/no-class-instance-fields': 0,
-		'es-x/no-class-private-fields': 0,
-		'es-x/no-class-private-methods': 0,
-		'es-x/no-class-static-blocks': 0,
-		'es-x/no-class-static-fields': 0,
-		'es-x/no-private-in': 0,
-		'es-x/no-logical-assignment-operators': 0,
-		'es-x/no-numeric-separators': 0,
-		'es-x/no-nullish-coalescing-operator': 0,
-		'es-x/no-optional-chaining': 0,
-		'es-x/no-optional-catch-binding': 0,
-		'es-x/no-rest-spread-properties': 0,
+		...off(esX.configs['flat/restrict-to-es2017'].rules, [
+			'no-array-prototype-flat',
+			'no-class-instance-fields',
+			'no-class-private-fields',
+			'no-class-private-methods',
+			'no-class-static-block',
+			'no-class-static-fields',
+			'no-private-in',
+			'no-logical-assignment-operators',
+			'no-numeric-separators',
+			'no-nullish-coalescing-operators',
+			'no-optional-chaining',
+			'no-optional-catch-binding',
+			'no-rest-spread-properties',
+		]),
 		'unicorn/prefer-array-last-methods': 0,
 		'unicorn/prefer-at': 0,
 		'unicorn/prefer-bigint-literals': 0,
 		'unicorn/prefer-global-this': 0,
 		'unicorn/prefer-object-from-entries': 0,
 		'unicorn/prefer-string-replace-all': 0,
-		'unicorn/prefer-structured-clone': 0,
 	}),
-	dist = getConfig({
-		...esX.configs['flat/restrict-to-es2022'].rules,
-		'es-x/no-array-prototype-findlast-findlastindex': 0,
-		'es-x/no-iterator-prototype-flatmap': 0,
-	}),
-	distES8 = getConfig({
-		...esX.configs['flat/restrict-to-es2017'].rules,
-		'es-x/no-array-prototype-flat': 0,
-	}, 8);
+	dist = getConfig(off(
+		esX.configs['flat/restrict-to-es2022'].rules,
+		[
+			'no-array-prototype-findlast-findlastindex',
+			'no-iterator-prototype-flatmap',
+		],
+	)),
+	distES8 = getConfig(off(
+		esX.configs['flat/restrict-to-es2017'].rules,
+		['no-array-prototype-flat'],
+	), 8);
 
 /**
  * 添加ESLint配置项
