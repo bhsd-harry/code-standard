@@ -15,8 +15,19 @@ import globals from 'globals';
 const tsRecommended = typescriptEslint.configs['flat/recommended-type-checked'],
 	files = ['**/*.ts'];
 const off = (rules, ruleNames) => {
-	const newRules = {...rules};
-	for (const ruleName of ruleNames) {
+	const newRules = {...rules},
+		offRules = [
+			...ruleNames,
+			'no-iterator-prototype-every',
+			'no-iterator-prototype-filter',
+			'no-iterator-prototype-find',
+			'no-iterator-prototype-flatmap',
+			'no-iterator-prototype-foreach',
+			'no-iterator-prototype-map',
+			'no-iterator-prototype-reduce',
+			'no-iterator-prototype-some',
+		];
+	for (const ruleName of offRules) {
 		const name = `es-x/${ruleName}`;
 		if (!(name in newRules)) {
 			throw new RangeError(`Rule ${name} does not exist!`);
@@ -31,20 +42,11 @@ const getConfig = (rules, ecmaVersion) => ({
 		...ecmaVersion && {ecmaVersion},
 	},
 	plugins: {'es-x': esX},
+	rules,
 	settings: {
 		'es-x': {
 			aggressive: true,
 		},
-	},
-	rules: {
-		...rules,
-		'es-x/no-iterator-prototype-every': 0,
-		'es-x/no-iterator-prototype-filter': 0,
-		'es-x/no-iterator-prototype-find': 0,
-		'es-x/no-iterator-prototype-foreach': 0,
-		'es-x/no-iterator-prototype-map': 0,
-		'es-x/no-iterator-prototype-reduce': 0,
-		'es-x/no-iterator-prototype-some': 0,
 	},
 });
 export const ignores = {
@@ -1208,18 +1210,25 @@ export const ignores = {
 		},
 	],
 	browser = getConfig({
+		'es-x/no-array-fromasync': 2,
 		'es-x/no-array-prototype-toreversed': 2,
 		'es-x/no-array-prototype-tosorted': 2,
 		'es-x/no-array-prototype-tospliced': 2,
 		'es-x/no-array-prototype-with': 2,
-		'es-x/no-dataview-prototype-getfloat16-setfloat16': 2,
-		'es-x/no-float16array': 2,
+		'es-x/no-date-prototype-totemporalinstant': 2,
+		'es-x/no-error-iserror': 2,
 		'es-x/no-iterator': 2,
+		'es-x/no-iterator-concat': 2,
 		'es-x/no-iterator-prototype-drop': 2,
 		'es-x/no-iterator-prototype-take': 2,
 		'es-x/no-iterator-prototype-toarray': 2,
+		'es-x/no-iterator-zip': 2,
+		'es-x/no-iterator-zipkeyed': 2,
 		'es-x/no-map-groupby': 2,
+		'es-x/no-map-prototype-getorinsert': 2,
+		'es-x/no-map-prototype-getorinsertcomputed': 2,
 		'es-x/no-math-f16round': 2,
+		'es-x/no-math-sumprecise': 2,
 		'es-x/no-object-groupby': 2,
 		'es-x/no-promise-try': 2,
 		'es-x/no-promise-withresolvers': 2,
@@ -1236,6 +1245,11 @@ export const ignores = {
 		'es-x/no-set-prototype-union': 2,
 		'es-x/no-string-prototype-iswellformed': 2,
 		'es-x/no-string-prototype-towellformed': 2,
+		'es-x/no-symbol-asyncdispose': 2,
+		'es-x/no-symbol-dispose': 2,
+		'es-x/no-temporal': 2,
+		'es-x/no-weakmap-prototype-getorinsert': 2,
+		'es-x/no-weakmap-prototype-getorinsertcomputed': 2,
 	}),
 	browserES8 = getConfig({
 		...off(esX.configs['flat/restrict-to-es2017'].rules, [
@@ -1245,13 +1259,14 @@ export const ignores = {
 			'no-class-private-methods',
 			'no-class-static-block',
 			'no-class-static-fields',
-			'no-private-in',
 			'no-logical-assignment-operators',
 			'no-numeric-separators',
 			'no-nullish-coalescing-operators',
 			'no-optional-chaining',
 			'no-optional-catch-binding',
+			'no-private-in',
 			'no-rest-spread-properties',
+			'no-trailing-dynamic-import-commas',
 		]),
 		'unicorn/prefer-array-last-methods': 0,
 		'unicorn/prefer-at': 0,
@@ -1262,10 +1277,7 @@ export const ignores = {
 	}),
 	dist = getConfig(off(
 		esX.configs['flat/restrict-to-es2022'].rules,
-		[
-			'no-array-prototype-findlast-findlastindex',
-			'no-iterator-prototype-flatmap',
-		],
+		['no-array-prototype-findlast-findlastindex'],
 	)),
 	distES8 = getConfig(off(
 		esX.configs['flat/restrict-to-es2017'].rules,
