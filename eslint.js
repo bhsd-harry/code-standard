@@ -14,7 +14,7 @@ import globals from 'globals';
 
 const tsRecommended = typescriptEslint.configs['flat/recommended-type-checked'],
 	files = ['**/*.ts'];
-const off = (rules, ruleNames) => {
+const off = (rules, ruleNames = []) => {
 	const newRules = {...rules},
 		offRules = [
 			...ruleNames,
@@ -1251,9 +1251,8 @@ export const ignores = {
 		'es-x/no-weakmap-prototype-getorinsert': 2,
 		'es-x/no-weakmap-prototype-getorinsertcomputed': 2,
 	}),
-	browserES8 = getConfig({
-		...off(esX.configs['flat/restrict-to-es2017'].rules, [
-			'no-array-prototype-flat',
+	browserES10 = getConfig({
+		...off(esX.configs['flat/restrict-to-es2019'].rules, [
 			'no-class-instance-fields',
 			'no-class-private-fields',
 			'no-class-private-methods',
@@ -1263,11 +1262,10 @@ export const ignores = {
 			'no-numeric-separators',
 			'no-nullish-coalescing-operators',
 			'no-optional-chaining',
-			'no-optional-catch-binding',
 			'no-private-in',
-			'no-rest-spread-properties',
 			'no-trailing-dynamic-import-commas',
 		]),
+		'es-x/no-regexp-lookbehind-assertions': 2,
 		'unicorn/prefer-array-last-methods': 0,
 		'unicorn/prefer-at': 0,
 		'unicorn/prefer-bigint-literals': 0,
@@ -1279,10 +1277,10 @@ export const ignores = {
 		esX.configs['flat/restrict-to-es2022'].rules,
 		['no-array-prototype-findlast-findlastindex'],
 	)),
-	distES8 = getConfig(off(
-		esX.configs['flat/restrict-to-es2017'].rules,
-		['no-array-prototype-flat'],
-	), 8);
+	distES10 = getConfig({
+		...off(esX.configs['flat/restrict-to-es2019'].rules),
+		'es-x/no-regexp-lookbehind-assertions': 2,
+	}, 10);
 
 /**
  * 添加ESLint配置项
