@@ -83,6 +83,7 @@ export const ignores = {
 			'unicorn/error-message': 2,
 			'unicorn/explicit-length-check': 2,
 			'unicorn/explicit-timer-delay': 2,
+			'unicorn/iteration-fallback-style': 2,
 			'unicorn/new-for-builtins': 2,
 			'unicorn/no-abusive-eslint-disable': 2,
 			'unicorn/no-accessor-recursion': 2,
@@ -267,6 +268,10 @@ export const ignores = {
 			'unicorn/require-number-to-fixed-digits-argument': 2,
 			'unicorn/require-passive-events': 2,
 			'unicorn/require-proxy-trap-boolean-return': 2,
+			'unicorn/single-line-block-comment-style': [
+				2,
+				'single-line',
+			],
 			'unicorn/switch-case-braces': [
 				2,
 				'avoid',
@@ -1258,6 +1263,7 @@ export const ignores = {
 			'no-class-private-methods',
 			'no-class-static-block',
 			'no-class-static-fields',
+			'no-global-this',
 			'no-logical-assignment-operators',
 			'no-numeric-separators',
 			'no-nullish-coalescing-operators',
@@ -1269,7 +1275,6 @@ export const ignores = {
 		'unicorn/prefer-array-last-methods': 0,
 		'unicorn/prefer-at': 0,
 		'unicorn/prefer-bigint-literals': 0,
-		'unicorn/prefer-global-this': 0,
 		'unicorn/prefer-object-from-entries': 0,
 		'unicorn/prefer-string-replace-all': 0,
 	}),
@@ -1278,7 +1283,7 @@ export const ignores = {
 		['no-array-prototype-findlast-findlastindex'],
 	)),
 	distES10 = getConfig({
-		...off(esX.configs['flat/restrict-to-es2019'].rules),
+		...off(esX.configs['flat/restrict-to-es2019'].rules, ['no-global-this']),
 		'es-x/no-regexp-lookbehind-assertions': 2,
 	}, 10);
 
