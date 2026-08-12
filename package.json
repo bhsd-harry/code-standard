@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/code-standard",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"homepage": "https://github.com/bhsd-harry/code-standard#readme",
 	"bugs": {
 		"url": "https://github.com/bhsd-harry/code-standard/issues"
@@ -45,22 +45,22 @@
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
 		"@stylistic/stylelint-plugin": "^5.3.0",
-		"@types/node": "^26.2.0",
-		"@typescript-eslint/eslint-plugin": "^8.67.0",
-		"@typescript-eslint/parser": "^8.67.0",
+		"@types/node": "^26.4.0",
+		"@typescript-eslint/eslint-plugin": "^8.69.0",
+		"@typescript-eslint/parser": "^8.69.0",
 		"eslint-plugin-es-x": "^10.0.0",
-		"eslint-plugin-jsdoc": "^64.1.0",
-		"eslint-plugin-jsonc": "^3.4.1",
+		"eslint-plugin-jsdoc": "^64.3.4",
+		"eslint-plugin-jsonc": "^3.4.2",
 		"eslint-plugin-n": "^18.3.0",
 		"eslint-plugin-promise": "^7.3.0",
-		"eslint-plugin-regexp": "^3.1.1",
-		"eslint-plugin-unicorn": "^73.0.0",
+		"eslint-plugin-regexp": "^3.2.0",
+		"eslint-plugin-unicorn": "^74.0.0",
 		"eslint-plugin-yml": "^3.8.1",
-		"globals": "^17.9.0",
-		"stylelint-plugin-use-baseline": "^1.4.5",
+		"globals": "^17.12.0",
+		"stylelint-plugin-use-baseline": "^1.4.6",
 		"stylelint-config-recommended": "^18.0.0"
 	},
 	"devDependencies": {
-		"eslint": "^10.8.1"
+		"eslint": "^10.10.0"
 	}
 }

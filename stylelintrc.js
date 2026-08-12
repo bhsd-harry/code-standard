@@ -9,6 +9,7 @@ export default {
 		'color-no-invalid-hex': true,
 		'selector-no-invalid': true,
 		'function-linear-gradient-no-nonstandard-direction': true,
+		'selector-no-unmatchable': true,
 		'function-no-unknown': true,
 		'no-unknown-animations': true,
 		'no-unknown-custom-media': true,

@@ -3,7 +3,10 @@
 	"first-line-h1": {
 		"allow_preamble": true
 	},
-	"line-length": false,
+	"line-length": {
+		"code_blocks": false,
+		"tables": false
+	},
 	"no-bare-urls": false,
 	"no-emphasis-as-heading": false,
 	"no-hard-tabs": false,
