@@ -89,6 +89,7 @@ export const ignores = {
 			'unicorn/no-accessor-recursion': 2,
 			'unicorn/no-array-callback-reference': 2,
 			'unicorn/no-array-fill-with-reference-type': 2,
+			'unicorn/no-async-iterator-callback': 2,
 			'unicorn/no-boolean-sort-comparator': 2,
 			'unicorn/no-for-each': 2,
 			'unicorn/no-array-from-fill': 2,
@@ -105,7 +106,12 @@ export const ignores = {
 			'unicorn/no-duplicate-loops': 2,
 			'unicorn/no-duplicate-set-values': 2,
 			'unicorn/no-exports-in-scripts': 2,
-			'unicorn/no-immediate-mutation': 2,
+			'unicorn/no-immediate-mutation': [
+				2,
+				{
+					checkConditionals: true,
+				},
+			],
 			'unicorn/no-incorrect-query-selector': 2,
 			'unicorn/no-incorrect-template-string-interpolation': 2,
 			'unicorn/no-instanceof-builtins': 2,
@@ -153,6 +159,8 @@ export const ignores = {
 			'unicorn/no-unsafe-promise-all-settled-values': 2,
 			'unicorn/no-unsafe-string-replacement': 2,
 			'unicorn/no-unused-array-method-return': 2,
+			'unicorn/no-unused-builtin-method-return': 2,
+			'unicorn/no-unused-iterator-helper': 2,
 			'unicorn/no-unused-properties': 2,
 			'unicorn/no-useless-boolean-cast': 2,
 			'unicorn/no-useless-coercion': 2,
@@ -167,9 +175,11 @@ export const ignores = {
 			'unicorn/no-useless-override': 2,
 			'unicorn/no-useless-promise-resolve-reject': 2,
 			'unicorn/no-useless-recursion': 2,
+			'unicorn/no-useless-set-construction': 2,
 			'unicorn/no-useless-spread': 2,
 			'unicorn/no-useless-switch-case': 2,
 			'unicorn/no-useless-template-literals': 2,
+			'unicorn/no-using-resource-escape': 2,
 			'unicorn/number-literal-case': 2,
 			'unicorn/numeric-separators-style': 2,
 			'unicorn/operator-assignment': 2,
@@ -190,6 +200,12 @@ export const ignores = {
 			'unicorn/prefer-class-fields': 2,
 			'unicorn/prefer-classlist-toggle': 2,
 			'unicorn/prefer-code-point': 2,
+			'unicorn/prefer-combined-guards': [
+				2,
+				{
+					checkCompoundConditions: true,
+				},
+			],
 			'unicorn/prefer-continue': [
 				2,
 				{
@@ -1071,6 +1087,7 @@ export const ignores = {
 						ignoreIIFE: true,
 					},
 				],
+				'@typescript-eslint/no-generated-empty-object-type': 2,
 				'@typescript-eslint/no-invalid-void-type': [
 					2,
 					{
@@ -1117,6 +1134,7 @@ export const ignores = {
 				'@typescript-eslint/no-unnecessary-qualifier': 2,
 				'@typescript-eslint/no-unsafe-assignment': 0,
 				'@typescript-eslint/no-unsafe-call': 0,
+				'@typescript-eslint/no-unsafe-enum-assignment': 2,
 				'@typescript-eslint/no-unsafe-return': 0,
 				'@typescript-eslint/no-useless-default-assignment': 2,
 				'@typescript-eslint/no-useless-empty-export': 2,
