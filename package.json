@@ -1,6 +1,6 @@
 {
 	"name": "@bhsd/code-standard",
-	"version": "4.3.0",
+	"version": "5.0.0",
 	"homepage": "https://github.com/bhsd-harry/code-standard#readme",
 	"bugs": {
 		"url": "https://github.com/bhsd-harry/code-standard/issues"
@@ -22,18 +22,18 @@
 	"scripts": {
 		"ls": "npm i --package-lock-only && npm ls --package-lock-only --all --omit=dev",
 		"lint:ts": "eslint --cache .",
-		"lint": "npm run lint:ts"
+		"lint:md": "myMarkdownlint",
+		"lint": "npm run lint:ts && npm run lint:md"
+	},
+	"bin": {
+		"myMarkdownlint": "markdownlint-cli.js"
 	},
 	"peerDependencies": {
 		"eslint": "^10.0.0",
-		"markdownlint-cli2": ">=0.7.0",
 		"stylelint": ">=17.10.0"
 	},
 	"peerDependenciesMeta": {
 		"eslint": {
-			"optional": true
-		},
-		"markdownlint-cli2": {
 			"optional": true
 		},
 		"stylelint": {
@@ -44,23 +44,27 @@
 		"@eslint/js": "^10.0.1",
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
 		"@stylistic/eslint-plugin": "^5.10.0",
-		"@stylistic/stylelint-plugin": "^5.3.0",
+		"@stylistic/stylelint-plugin": "^5.3.1",
 		"@types/node": "^26.6.2",
 		"@typescript-eslint/eslint-plugin": "^8.71.0",
 		"@typescript-eslint/parser": "^8.71.0",
 		"eslint-plugin-es-x": "^10.0.1",
-		"eslint-plugin-jsdoc": "^64.5.4",
+		"eslint-plugin-jsdoc": "^65.2.1",
 		"eslint-plugin-jsonc": "^3.4.2",
-		"eslint-plugin-n": "^18.3.0",
+		"eslint-plugin-n": "^18.4.1",
 		"eslint-plugin-promise": "^7.3.0",
 		"eslint-plugin-regexp": "^3.3.1",
-		"eslint-plugin-unicorn": "^76.0.0",
-		"eslint-plugin-yml": "^3.8.1",
-		"globals": "^17.12.0",
+		"eslint-plugin-unicorn": "^77.0.0",
+		"eslint-plugin-yml": "^3.9.0",
+		"globals": "^17.13.0",
+		"markdownlint": "^0.41.1",
 		"stylelint-plugin-use-baseline": "^1.4.6",
 		"stylelint-config-recommended": "^18.0.0"
 	},
 	"devDependencies": {
-		"eslint": "^10.11.0"
+		"eslint": "^10.12.0"
+	},
+	"engines": {
+		"node": "^26.0.0"
 	}
 }

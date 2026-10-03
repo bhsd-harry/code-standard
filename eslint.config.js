@@ -1,7 +1,9 @@
 import {jsDoc, node, extend} from './eslint.js';
 
-export default extend(
+const config = extend(
 	'module',
 	jsDoc,
 	...node,
 );
+
+export default config;
