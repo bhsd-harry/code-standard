@@ -1,9 +1,9 @@
-import {jsDoc, node, extend} from './eslint.js';
+import {jsDoc, node, extend, getOxlintConfig} from './eslint.js';
 
-const config = extend(
+const config = getOxlintConfig(extend(
 	'module',
 	jsDoc,
 	...node,
-);
+));
 
 export default config;

@@ -1,3 +1,4 @@
+import path from 'path';
 import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 import promise from 'eslint-plugin-promise';
@@ -10,6 +11,7 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import n from 'eslint-plugin-n';
 import esX from 'eslint-plugin-es-x';
 import yml from 'eslint-plugin-yml';
+import oxlint from 'eslint-plugin-oxlint';
 import globals from 'globals';
 
 const tsRecommended = typescriptEslint.configs['flat/recommended-type-checked'],
@@ -53,6 +55,8 @@ export const ignores = {
 		ignores: [
 			'**/dist/',
 			'**/build/',
+			'test/parserTests.json',
+			'**/.oxlintrc.json',
 		],
 	},
 	unicornConfigs = {
@@ -719,7 +723,7 @@ export const ignores = {
 					2,
 					{
 						allowBlockStart: true,
-						ignorePattern: String.raw`^(\* @| c8 ignore )`,
+						ignorePattern: String.raw`^(\* @| c8 ignore | oxlint-)`,
 					},
 				],
 				'@stylistic/lines-between-class-members': [
@@ -925,6 +929,7 @@ export const ignores = {
 				1,
 				{
 					checkConstructors: false,
+					exemptedBy: ['implements'],
 				},
 			],
 			'jsdoc/require-throws': 1,
@@ -1334,6 +1339,18 @@ export const ignores = {
 		...off(esX.configs['flat/restrict-to-es2019'].rules, ['no-global-this']),
 		'es-x/no-regexp-lookbehind-assertions': 2,
 	}, 10);
+
+/**
+ * 兼容Oxlint的配置项
+ * @param {import('eslint').Linter.Config[]} configs ESLint配置项
+ * @param {string} cwd .oxlintrc.json所在目录
+ */
+export const getOxlintConfig = (configs, cwd = process.cwd()) => process.env.MIGRATE
+	? configs.filter(({files: fs}) => !fs || fs.some(f => /\.[cm]?[jt]s$/u.test(f)))
+	: [
+		...configs,
+		...oxlint.buildFromOxlintConfigFile(path.join(cwd, '.oxlintrc.json')),
+	];
 
 /**
  * 添加ESLint配置项

@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env bash
 npm run lint
 if [[ $? -eq 0 ]]
 then
